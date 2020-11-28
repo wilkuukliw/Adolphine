@@ -6,9 +6,9 @@ class Reminder extends Model {
     
     static tableName = 'reminders';
 
-    static relationMappings = { 
-        users: {
-            relation: Model.HasManyRelation,
+    static relationMappings = {
+        user: {
+            relation: Model.BelongsToOneRelation,
             modelClass: User,
             join: {
                 from: 'reminders.userId',
