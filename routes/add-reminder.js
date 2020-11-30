@@ -5,8 +5,13 @@ const User = require('../models/User.js');
 
 
 router.get("/schedule", (req, res) => {
-    return res.sendFile(path.join(__dirname, '../api/reminders/add-reminder.html'));
-})
+
+ //   if(req.session.user) {
+        return res.sendFile(path.join(__dirname, '../api/reminders/reminder.html'));
+ //   } else {
+//        return res.redirect('/login');
+ //   }
+ });
 
 router.post("/schedule", async (req, res) => {
     const { item_1, item_2, item_3, item_4, item_5, created_by, send_at } = req.body;
@@ -33,7 +38,8 @@ router.post("/schedule", async (req, res) => {
 
             });
 
-            return res.send({ response: "Reminder created" + createdReminder});
+            //first show alert and then redirect
+
         }
     } catch (error) {
         return res.status(500).send({ response: "Something went wrong with the database" + error});

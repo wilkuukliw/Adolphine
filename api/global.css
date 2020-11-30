@@ -93,7 +93,7 @@ body {
 button {
     background-color: #FCFADE;
     padding: 10px 10px;
-    margin: 16px 0;
+    margin: 25px;
     border: none;
     cursor: pointer;
     width: 15%;
@@ -103,7 +103,8 @@ button {
     border-radius: 35px;
 	line-height: 50px;
 	border: none;
-	padding: 0 30px;
+    padding: 0 30px;
+    display: block;
 }
 
 button:hover {
@@ -149,7 +150,7 @@ footer {
 input[type=text], input[type=password] {
     width: 30%;
     padding: 12px 12px;
-    margin: 5px 0;
+    margin: 15px 0;
     display: block;
     border-radius: 30px;
 
@@ -189,6 +190,7 @@ input[type=text], input[type=password] {
 
 .reminder-container label {
     visibility: hidden;
+    display: block;
 }
 
 
