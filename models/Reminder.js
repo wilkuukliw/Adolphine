@@ -7,14 +7,15 @@ class Reminder extends Model {
     static tableName = 'reminders';
 
     static relationMappings = {
+
         user: {
             relation: Model.BelongsToOneRelation,
             modelClass: User,
             join: {
-                from: 'reminders.userId',
-                to: 'users.id'
-            }
+                from: 'reminders.createdBy',
+                to: 'users.username'
         }
+    }
     }
 }
 

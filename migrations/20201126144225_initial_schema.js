@@ -23,8 +23,8 @@ exports.up = function(knex) {
         table.string('item_3');
         table.string('item_4');
         table.string('item_5');
-        table.integer('user_id').unsigned().notNullable();
-        table.foreign('user_id').references('users.id');
+        table.string('created_by').notNullable();
+        table.foreign('created_by').references('users.username');
         table.dateTime('send_at').notNullable();
         table.dateTime('updated_at').defaultTo(knex.raw('NULL ON UPDATE CURRENT_TIMESTAMP'));
         table.dateTime('created_at').notNullable().defaultTo(knex.raw('CURRENT_TIMESTAMP'));

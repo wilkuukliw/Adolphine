@@ -133,11 +133,11 @@ form {
   /* Footer */
 
 footer {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    height:100px;
+    height:50px;
 }
 
  #copyright-paragraph {
@@ -175,6 +175,22 @@ input[type=text], input[type=password] {
     transform-origin: bottom;
     transform-box: fill-box;
 }
+
+/* reminder form */
+
+.reminder-container {
+    width: 50%;
+    padding-right: 850px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: 15px;
+    margin-top: 100px;
+}
+
+.reminder-container label {
+    visibility: hidden;
+}
+
 
 @keyframes move {
     0% {

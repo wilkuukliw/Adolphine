@@ -3,7 +3,7 @@ const path = require('path');
 const Reminder = require('../models/Reminder.js');
 
 router.get('/reminders', (req,res) => {
-    return res.sendFile(path.join(__dirname, '../api/reminders.html'));
+    return res.sendFile(path.join(__dirname, '../api/reminders/reminders.html'));
 });
 
 router.get('/reminders/collection', async (req,res) => {
@@ -13,7 +13,7 @@ router.get('/reminders/collection', async (req,res) => {
 
 
 router.get('/reminders/:id', (req,res) => {
-    return res.sendFile(path.join(__dirname, '../api/reminder.html'));
+    return res.sendFile(path.join(__dirname, '../api/reminders/reminder.html'));
 });
 
 router.get('/reminder/collection/:id', async (req, res) => {

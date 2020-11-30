@@ -4,19 +4,19 @@ const Reminder = require('../models/Reminder.js');
 const User = require('../models/User.js');
 
 
-router.get("/add-reminder", (req, res) => {
-    return res.sendFile(path.join(__dirname, '../api/add-reminder.html'));
+router.get("/schedule", (req, res) => {
+    return res.sendFile(path.join(__dirname, '../api/reminders/add-reminder.html'));
 })
 
-router.post("/add-reminder", async (req, res) => {
-    const { item_1, item_2, item_3, item_4, item_5, user_id, send_at } = req.body;
+router.post("/schedule", async (req, res) => {
+    const { item_1, item_2, item_3, item_4, item_5, created_by, send_at } = req.body;
 
-    if (item_1 && item_2 && item_3 && item_4 && item_5 && user_id && send_at) {
+    if (item_1 && item_2 && item_3 && item_4 && item_5 && created_by && send_at) {
 
         try {
-            const userFound = await User.query().select().where('id', created_by).limit(1);
+            const userFound = await User.query().select().where('username', created_by).limit(1);
             if (userFound.length === 0) {
-                return res.status(400).send({ response: "Verify the user's identifier - we seem not to have it in our base anymore"
+                return res.status(400).send({ response: "Verify the user's initials"
                 });
                 
             } else {
@@ -28,12 +28,12 @@ router.post("/add-reminder", async (req, res) => {
                 item_3,
                 item_4,
                 item_5,
-                user_id,
+                created_by,
                 send_at
 
             });
 
-            return res.send({ response: "Reminder created"});
+            return res.send({ response: "Reminder created" + createdReminder});
         }
     } catch (error) {
         return res.status(500).send({ response: "Something went wrong with the database" + error});
@@ -41,7 +41,7 @@ router.post("/add-reminder", async (req, res) => {
 
 } else {
 
-    return res.status(404).send({response: "Missing fields: created_by, item_1, send_at"});
+    return res.status(404).send({response: "Missing mandatory fields"});
 
 }
 

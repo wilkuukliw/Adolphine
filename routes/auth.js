@@ -1,13 +1,9 @@
 const router = require('express').Router(); 
 const path = require('path');
 const User = require('../models/User.js');
+const Role = require('../models/Role.js');
 const bcrypt = require('bcrypt'); 
 const saltRounds = 12; 
-
-
-router.get('/login', (req, res) => {
-    return res.sendFile(path.join(__dirname, '../api/account/login.html'));
-});
 
 router.post('/login', async (req, res) => {
     const {username, password} = req.body;   
@@ -23,13 +19,13 @@ router.post('/login', async (req, res) => {
         if(match) {
 
             req.session.username = username;
-            req.session.user = {id: userFound[0].id}
-            return res.redirect("/reminders");   
+            req.session.user = {id: userFound[0].id, role:userFound[0].role_id}
+            return res.redirect("/home");   
         }
 
-    } catch(error) {
-        return res.status(500).send({ response: "Something went wrong with the database" });
-    }
+        } catch (error) {
+            return res.status(500).send({ response: "Something went wrong with the database" + error});
+        }
     return res.status(400).send({ response: "Incorrect password" });
 });
 
@@ -53,17 +49,21 @@ router.post('/signup', async (req, res) => {
                     return res.status(400).send({ response: "User already exists" });
             } else {
 
+                // Role model uses await instead (promise)
+                const defaultUserRoles =  await Role.query().select().where({ 'role': 'USER' });
+
                 const hashedPassword = await bcrypt.hash(password, saltRounds);
                 const createdUser = await User.query().insert({
                     username,
                     password: hashedPassword,
+                    roleId: defaultUserRoles[0].id
                 });
 
                 return res.send({ response: `User has been created with the username ${createdUser.username} You can now log in` });
             }
 
             } catch (error) {
-                return res.status(500).send({ response: "Something went wrong with the database" });
+                return res.status(500).send({ response: "Something went wrong with the database" + error });
             }
 
         }
@@ -79,9 +79,9 @@ router.post('/signup', async (req, res) => {
 router.get("/logout", (req, res) => {   
     req.session.destroy((error) => {
         if(error) {
-            return res.send({ response: "Something went wrong: ", error })
+            return res.send({ response: "Something went wrong: " + error });
         }
-        return res.send({ response: "Logged out succesfully"})
+        return res.redirect("/login");
     });
 });   
 

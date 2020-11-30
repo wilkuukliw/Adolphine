@@ -22,6 +22,10 @@ app.get("/", (req,res) => {
     return res.send(loginPage + footerPage);   
 });
 
+app.get("/login", (req,res) => {
+    return res.send(loginPage + footerPage);   
+});
+
 app.get("/home", (req,res) => {    
     
     if(req.session.user) {
@@ -42,7 +46,17 @@ app.use(remindersRoute);
 const subscribersRoute = require('./routes/subscribers.js');
 app.use(subscribersRoute); 
 
-//hange it to be neater, more advanced
+/* knex and objection */
+
+const { Model } = require('objection'); 
+const Knex = require('knex');    
+const knexFile = require('./knexfile.js');
+
+const knex = Knex(knexFile.development);   
+
+Model.knex(knex);  
+
+//change it to be neater, more advanced
 app.listen(5005, (error) => {
     if (error) {
         console.log("Error running the server");
