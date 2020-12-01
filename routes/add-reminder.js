@@ -43,14 +43,7 @@ router.post("/schedule", async (req, res) => {
         }
     } catch (error) {
         return res.status(500).send({ response: "Something went wrong with the database" + error});
-    }
 
-} else {
-
-    return res.status(404).send({response: "Missing mandatory fields"});
-
-}
-
-});
+    }}});
 
 module.exports = router;

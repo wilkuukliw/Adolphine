@@ -74,7 +74,9 @@ router.post('/signup', async (req, res) => {
     } else if (password && passwordRepeat && !isPasswordTheSame) {
         return res.status(400).send({ response: "Passwords do not match. Fields: password and passwordRepeat" });
     } else {
-        return res.status(404).send({ response: "Missing fields: username, password, passwordRepeat" });
+
+        // sweetalert
+       // return res.status(404).send({ response: "Missing fields: username, password, passwordRepeat" });
     }
     
 });
