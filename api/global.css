@@ -179,7 +179,7 @@ input[type=text], input[type=password] {
 
 /* reminder form */
 
-.reminder-container {
+.reminder-container, .subscriber-container {
     width: 50%;
     padding-right: 850px;
     padding-left: 15px;
@@ -188,7 +188,7 @@ input[type=text], input[type=password] {
     margin-top: 100px;
 }
 
-.reminder-container label {
+.reminder-container label, .subscriber-container label, .account-container label {
     visibility: hidden;
     display: block;
 }
