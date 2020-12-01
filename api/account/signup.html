@@ -1,30 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create account</title>
-    <link type="text/css" rel="stylesheet" href="api/global.css">
-    <link href="https://fonts.googleapis.com/css2?family=Faster+One&family=Thasadith&display=swap" rel="stylesheet">
-</head>
-
-<body>
-
-    <form action="/signup" method="POST">
-      
-        <div class="account-container">
-          <label for="username"><b>Username</b></label>
-          <input type="text" placeholder="Enter Username" name="username" required>   
-      
-          <label for="password"><b>Password</b></label>
-          <input type="password" placeholder="Enter Password" name="password" required>
-
-          <label for="passwordRepeat"><b>Please repeat password</b></label>
-          <input type="password" placeholder="Repeat Password" name="passwordRepeat" required>
-      
-          <button type="submit">Create</button>
-        </div>
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Create account</title>
+      <link type="text/css" rel="stylesheet" href="api/global.css">
+      <link href="https://fonts.googleapis.com/css2?family=Faster+One&family=Thasadith&display=swap" rel="stylesheet">
+      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   </head>
+   <body>
+      <form action="/signup" method="POST" name="accountSubmit" onsubmit="return validateForm()">
+         <div class="account-container">
+            <label for="username"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="username" id="username" required>   
+            <label for="password"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="password" id="password"required>
+            <label for="passwordRepeat"><b>Please repeat password</b></label>
+            <input type="password" placeholder="Repeat Password" name="passwordRepeat" id="passwordRepeat" required>
+            <button type="submit" id="submit" >Create</button>
+         </div>
       </form>
-    
-</body>
+      <script>
+         function validateForm() {
+             const item_1 = document.forms.reminderSubmit.item_1.value;
+             const item_2 = document.forms.reminderSubmit.item_2.value;
+             const item_3 = document.forms.reminderSubmit.item_3.value;
+             const item_4 = document.forms.reminderSubmit.item_4.value;
+             const item_5 = document.forms.reminderSubmit.item_5.value;
+             const created_by = document.forms.reminderSubmit.created_by.value;
+             const send_at = document.forms.reminderSubmit.send_at.value;
+         
+             const numericReg = /^\+?\d*$/;
+         
+             if (item_1.length < 4 && item_2.length < 4 && item_3.length < 4 && item_4.length < 4 && item_5.length < 4) {
+                 sweetAlert("Please be more specific");
+                 return false;
+             }
+         
+             if (numericReg.test(created_by)) {
+                 sweetAlert("Please enter alphabetic characters only for the initials");
+                 return false;
+             }
+         
+             return true;
+             
+         }
+         
+         $("#submit").click(function() {
+                  
+            var delay = 4000; 
+            var url = 'http://localhost:5005/login';
+            setTimeout(function(){ window.location = url; }, delay);
+             
+                swal({
+                   title: "Account has been created succesfully",
+                   text: "You can now log in",
+                   icon: "success",
+                   button: "OK",
+                });
+             }
+         );
+         
+      </script>
+   </body>
 </html>

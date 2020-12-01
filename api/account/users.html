@@ -3,11 +3,9 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Reminders</title>
+      <title>Accounts</title>
       <link rel="stylesheet" type="text/css" href="/api/global.css">
- 
-    </style>
-
+      </style>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" ></script>
       <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
       <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/uikit/3.0.2/css/uikit.min.css">
@@ -16,78 +14,57 @@
       <script src="//cdn.datatables.net/1.10.22/js/dataTables.uikit.min.js"></script>
    </head>
    <body>
-      <table id="reminders" class="hover" style="width:90%">
+      <table id="users" class="hover" style="width:90%">
          <thead>
             <tr>
                <th>#</th>
-               <th>1</th>
-               <th>2</th>
-               <th>3</th>
-               <th>4</th>
-               <th>5</th>
-               <th>Created by</th>
-               <th>To be send at</th>
+               <th>Username</th>
+               <th>Enrypted password</th>
+               <th>Role id</th>
                <th>Last updated</th>
                <th>Created at</th>
-               <th>Deleted?</th>
-               <th>Deleted at</th>
-               <th>Modify</th>
             </tr>
          </thead>
          <tbody>
          </tbody>
       </table>
       <div class="floating-btn">
-         <a class="floating-btn" href="/schedule">+</a>
-       </div>
-       <script>
+         <a class="floating-btn" href="/signup">+</a>
+      </div>
+      <script>
          $(document).ready(function() {
-
-
-
-    $.ajax({                                  
-        "url": "/reminders/collection",
-        "type": "GET",
-        "datatype": 'json',
-
-        "success": function(x) {
-
-            $('#reminders').DataTable({
+         $.ajax({                                  
+         "url": "/users/collection",
+         "type": "GET",
+         "datatype": 'json',
+         
+         "success": function(x) {
+         
+            $('#users').DataTable({
                 data: x.response,
                 rowId: 'id',
                 "ordering": false,
                 "searching": true,
-
+         
                 "columnDefs": [{
                     "className": "dt-center",
                     "targets": "_all",
                     "data": null,
-                    "defaultContent": "<button>Edit</button>",
-                    "targets": -1
                 }],
                 columns: [
-
+         
                     { data: 'id' },
-                    { data: 'item1' },
-                    { data: 'item2' },
-                    { data: 'item3' },
-                    { data: 'item4' },
-                    { data: 'item5' },
-                    { data: 'createdBy' },
-                    { data: 'sendAt' },
+                    { data: 'username' },
+                    { data: 'password' },
+                    { data: 'roleId' },
                     { data: 'updatedAt' },
                     { data: 'createdAt' },
-                    { data: 'isDeleted' },
-                    { data: 'deletedAt' },
-                    { data: 'modify' },
-  
                 ],
             });
-            var table = $('#reminders').DataTable();
-
-        }
-    })
-});
-       </script>
+            var table = $('#users').DataTable();
+         }
+         })
+         });
+      </script>
    </body>
 </html>

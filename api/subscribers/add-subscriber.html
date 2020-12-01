@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Add a new subscriber</title>
+      <link rel="stylesheet" type="text/css" href="./api/global.css">
+      <link href="https://fonts.googleapis.com/css2?family=Faster+One&family=Thasadith&display=swap" rel="stylesheet">
+      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   </head>
+   <body>
+      <form action="/subscribe" method="POST" name="subscriberSubmit" onsubmit="return validateForm()">
+         <div class="subscriber-container">
+            <label for="email">Add to the mailing list..</label>
+            <input type="text" placeholder="Add to the mailing list.." name="email" id="email" required>   
+            <button class="btn btn-primary" type="submit" id="submit">Submit</button>
+            <button class="btn btn-primary" id="cancel" onclick="window.location.href='/home'">Cancel</button>
+         </div>
+      </form>
+      <script>
+         function validateForm() {
+             const email = document.forms.subscriberSubmit.email.value;
+         
+             const emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+         
+             if (!emailReg.test(email)) {
+                 sweetAlert("Wrong e-mail address - please verify");
+                 return false;
+             }
+         
+             return true;
+             
+         }
+         
+         $("#submit").click(function() {
+             var email = $("#email").val();
+         
+            var delay = 4000; 
+            var url = 'http://localhost:5005/home';
+            setTimeout(function(){ window.location = url; }, delay);
+             
+             if ( email == '' ) {
+             
+                swal({
+                   title: "Fields empty",
+                   text: "Please fill the missing fields",
+                   icon: "warning",
+                   button: "OK"
+                });
+             } else {
+                
+                swal({
+                   title: "New subscriber added!",
+                   text: "You will now be redirected to the main page",
+                   icon: "success",
+                   button: "OK",
+                });
+             }
+         });
+         
+      </script>
+   </body>
+</html>

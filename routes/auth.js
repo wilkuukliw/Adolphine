@@ -59,7 +59,10 @@ router.post('/signup', async (req, res) => {
                     roleId: defaultUserRoles[0].id
                 });
 
-                return res.send({ response: `User has been created with the username ${createdUser.username} You can now log in` });
+
+
+                // alert and redirect
+             //   return res.send({ response: `User has been created with the username ${createdUser.username} You can now log in` });
             }
 
             } catch (error) {

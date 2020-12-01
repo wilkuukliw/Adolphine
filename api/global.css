@@ -193,6 +193,45 @@ input[type=text], input[type=password] {
     display: block;
 }
 
+#subscribers thead,
+#subscribers th, td,
+#users thead,
+#users th, td,
+#reminders thead,
+#reminders th, td  {
+  text-align: center;
+  color:black !important;
+}
+
+.dt-center {
+text-align: center;
+}
+
+#subscribers_wrapper, #users_wrapper, #reminders_warapper {
+display: block;
+}
+
+label {
+display: inline-block;
+margin: 25px;
+}
+
+.floating-btn {
+background-color: #AFC7D0;
+width: 70px;
+position: fixed;
+bottom: 40px;
+right: 40px;
+vertical-align: middle;
+font-size: 50px;
+text-align: center;
+line-height: 70px;
+border-radius: 100%;
+}
+
+.floating-btn:hover {
+background-color: pink;
+}
 
 @keyframes move {
     0% {

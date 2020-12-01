@@ -7,7 +7,7 @@ const User = require('../models/User.js');
 router.get("/schedule", (req, res) => {
 
  //   if(req.session.user) {
-        return res.sendFile(path.join(__dirname, '../api/reminders/reminder.html'));
+        return res.sendFile(path.join(__dirname, '../api/reminders/add-reminder.html'));
  //   } else {
 //        return res.redirect('/login');
  //   }

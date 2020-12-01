@@ -28,8 +28,8 @@ exports.up = function(knex) {
         table.dateTime('send_at').notNullable();
         table.dateTime('updated_at').defaultTo(knex.raw('NULL ON UPDATE CURRENT_TIMESTAMP'));
         table.dateTime('created_at').notNullable().defaultTo(knex.raw('CURRENT_TIMESTAMP'));
-        table.boolean("is_deleted").nullable();   //to be used for reminders crud
-        table.dateTime("deleted_at").nullable();
+        table.boolean('is_deleted').nullable();   //to be used for reminders crud
+        table.dateTime('deleted_at').nullable();
     })
 
     .createTable('subscribers', (table) => {

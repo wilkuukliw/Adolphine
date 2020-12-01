@@ -41,10 +41,12 @@ const usersRoute = require('./routes/users.js');
 app.use(usersRoute);  
 const addReminderRoute = require('./routes/add-reminder.js');
 app.use(addReminderRoute);  
-const remindersRoute = require('./routes/reminders.js');
-app.use(remindersRoute); 
+const reminderRoute = require('./routes/reminder.js');
+app.use(reminderRoute); 
 const subscribersRoute = require('./routes/subscribers.js');
-app.use(subscribersRoute); 
+app.use(subscribersRoute);
+const addSubscriberRoute = require('./routes/add-subscriber.js');   
+app.use(addSubscriberRoute);  
 
 /* knex and objection */
 
