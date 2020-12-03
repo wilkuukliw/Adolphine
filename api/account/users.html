@@ -10,8 +10,8 @@
       <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
       <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/uikit/3.0.2/css/uikit.min.css">
       <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.22/css/dataTables.uikit.min.css">
-      <script src="//cdn.datatables.net/10.10.4/js/jquery.dataTables.min.js"></script>
-      <script src="//cdn.datatables.net/10.10.4/js/dataTables.uikit.min.js"></script>
+      <script src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+      <script src="//cdn.datatables.net/1.10.22/js/dataTables.uikit.min.js"></script>
    </head>
    <body>
       <table id="users" class="hover" style="width:90%">
@@ -20,6 +20,7 @@
                <th>#</th>
                <th>Username</th>
                <th>Enrypted password</th>
+               <th>E-mail</th>
                <th>Role id</th>
                <th>Last updated</th>
                <th>Created at</th>
@@ -56,6 +57,7 @@
                     { data: 'id' },
                     { data: 'username' },
                     { data: 'password' },
+                    { data: 'email' },
                     { data: 'roleId' },
                     { data: 'updatedAt' },
                     { data: 'createdAt' },

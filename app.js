@@ -1,7 +1,7 @@
 const express = require("express"); 
 const app = express();
-const fs = require('fs'); 
-const session = require('express-session');  
+const fs = require("fs"); 
+const session = require('express-session'); 
 
 app.use(express.static('.'));
 app.use(express.urlencoded({extended: true})); 
@@ -57,6 +57,46 @@ const knexFile = require('./knexfile.js');
 const knex = Knex(knexFile.development);   
 
 Model.knex(knex);  
+
+
+//MAILER STUFF
+
+//const path = require('path');
+const credentials = require("./config/mailCredentials");
+const nodemailer = require("nodemailer");
+
+//mail scheduler wrapped in the function
+
+function mailSender(email,subject,message) {
+ // e-mail message options
+
+ let mailOptions = {
+    from: credentials.user,
+    to: 'anwi@simcorp.com',
+    subject: 'Email from Adolphine: A Test Message!',
+    text: 'Some content to send'
+};
+
+// e-mail transport configuration
+
+let transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true, // use SSL
+    auth: {
+        user: credentials.user,
+        pass: credentials.pass
+    }
+});
+
+// transporter.sendMail(mailOptions, function(error, info){
+//     if (error) {
+//       console.log(error);
+//     } else {
+//       console.log('Email sent: ' + info.response);
+//     }
+// });
+}
 
 //change it to be neater, more advanced
 app.listen(5005, (error) => {

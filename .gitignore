@@ -1,6 +1,7 @@
 mysqlCredentials.js
 node_modules/
-#emailCredentials.js
+#mysqlCredentials.js
+#mailCredentials.js
 
 # Logs
 logs

@@ -93,10 +93,10 @@ body {
 button {
     background-color: #FCFADE;
     padding: 10px 10px;
-    margin: 25px;
+    margin: 45px;
     border: none;
     cursor: pointer;
-    width: 15%;
+    width: 10%;
     position: center;
     font-family: 'Thasadith', sans-serif;
     font-size: 1em;
@@ -117,19 +117,7 @@ button:hover {
     display: flex;
 }
 
-/* Upload */
 
-form {
-    display: block;
-    margin-top: 120px;
-}
-
-#upload-photo {
-    opacity: 0;
-    position: absolute;
-    z-index: -1;
-    visibility: hidden;
-}
 
   /* Footer */
 
@@ -148,50 +136,22 @@ footer {
  /* Signup and login form */
 
 input[type=text], input[type=password] {
-    width: 30%;
+    width: 14%;
     padding: 12px 12px;
-    margin: 15px 0;
+    margin: -20px;
     display: block;
     border-radius: 30px;
-
-}
-
-.account-container {
-    width: 35%;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
-    margin-top: 100px;
-}
-
-.account-container label {
-    visibility: hidden;
 }
 
 .back, .bottom {
     animation-name: move;
     animation-duration: 3s;
-    animation-iteration-count: 2;
+    animation-iteration-count: unset;
     transform-origin: bottom;
     transform-box: fill-box;
 }
 
 /* reminder form */
-
-.reminder-container, .subscriber-container {
-    width: 50%;
-    padding-right: 850px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: 15px;
-    margin-top: 100px;
-}
-
-.reminder-container label, .subscriber-container label, .account-container label {
-    visibility: hidden;
-    display: block;
-}
 
 #subscribers thead,
 #subscribers th, td,
