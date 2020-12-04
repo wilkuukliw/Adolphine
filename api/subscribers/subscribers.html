@@ -11,8 +11,13 @@
       <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.22/css/dataTables.uikit.min.css">
       <script src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
       <script src="//cdn.datatables.net/1.10.22/js/dataTables.uikit.min.js"></script>
+
+
+
    </head>
    <body>
+
+   
       <table id="subscribers" class="hover" style="width:90%">
          <thead>
             <tr>
@@ -20,17 +25,22 @@
                <th>E-mail</th>
                <th>Last updated</th>
                <th>Created on</th>
-               <th>Modify</th>
             </tr>
          </thead>
          <tbody>
          </tbody>
       </table>
-      <div class="floating-btn">
-         <a class="floating-btn" href="/subscribe">+</a>
+      <div class="floating-btn-add">
+         <a class="floating-btn-add" href="/subscribe">+</a>
+      </div>
+      <div class="floating-btn-del">
+         <a class="floating-btn-del" href="/delete-subscriber">-</a>
       </div>
       <script>
+
+      
          $(document).ready(function() {
+            
          
          $.ajax({                                  
          "url": "/subscribers/collection",
@@ -45,28 +55,25 @@
                 "ordering": false,
                 "searching": true,
          
-                "columnDefs": [{
-                    "className": "dt-center",
-                    "targets": "_all",
-                    "data": null,
-                    "defaultContent": "<button>Edit</button>",
-                    "targets": -1
-                }],
                 columns: [
          
                     { data: 'id' },
                     { data: 'email' },
                     { data: 'updatedAt' },
                     { data: 'createdAt' },
-                    { data: 'modify' },
-         
+
                 ],
+
             });
             var table = $('#subscribers').DataTable();
+ 
+
+
+         }})});
+
          
-         }
-         })
-         });
+
+
       </script>
    </body>
 </html>

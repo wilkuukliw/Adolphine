@@ -90,13 +90,17 @@ body {
     overflow-x: hidden; /* Hide horizontal scrollbar */
 }
 
+.swal2-confirm {
+  width: initial;
+  height: initial;
+}
+
 button {
     background-color: #FCFADE;
     padding: 10px 10px;
     margin: 45px;
     border: none;
     cursor: pointer;
-    width: 10%;
     position: center;
     font-family: 'Thasadith', sans-serif;
     font-size: 1em;
@@ -176,11 +180,11 @@ display: inline-block;
 margin: 25px;
 }
 
-.floating-btn {
-background-color: #AFC7D0;
+.floating-btn-add {
+background-color: #9be5a5;
 width: 70px;
 position: fixed;
-bottom: 40px;
+bottom: 140px;
 right: 40px;
 vertical-align: middle;
 font-size: 50px;
@@ -188,6 +192,19 @@ text-align: center;
 line-height: 70px;
 border-radius: 100%;
 }
+
+.floating-btn-del {
+  background-color: #e26695;
+  width: 70px;
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  vertical-align: middle;
+  font-size: 50px;
+  text-align: center;
+  line-height: 70px;
+  border-radius: 100%;
+  }
 
 .floating-btn:hover {
 background-color: pink;

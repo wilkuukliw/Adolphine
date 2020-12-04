@@ -47,6 +47,10 @@ const subscribersRoute = require('./routes/subscribers.js');
 app.use(subscribersRoute);
 const addSubscriberRoute = require('./routes/add-subscriber.js');   
 app.use(addSubscriberRoute);  
+const deleteSubscriberRoute = require('./routes/delete-subscriber.js');   
+app.use(deleteSubscriberRoute); 
+const deleteReminderRoute = require('./routes/delete-reminder.js');   
+app.use(deleteReminderRoute); 
 
 /* knex and objection */
 
@@ -61,33 +65,33 @@ Model.knex(knex);
 
 //MAILER STUFF
 
-//const path = require('path');
-const credentials = require("./config/mailCredentials");
-const nodemailer = require("nodemailer");
+// //const path = require('path');
+// const credentials = require("./config/mailCredentials");
+// const nodemailer = require("nodemailer");
 
-//mail scheduler wrapped in the function
+// //mail scheduler wrapped in the function
 
-function mailSender(email,subject,message) {
- // e-mail message options
+// function mailSender(email,subject,message) {
+//  // e-mail message options
 
- let mailOptions = {
-    from: credentials.user,
-    to: 'anwi@simcorp.com',
-    subject: 'Email from Adolphine: A Test Message!',
-    text: 'Some content to send'
-};
+//  let mailOptions = {
+//     from: credentials.user,
+//     to: 'anwi@simcorp.com',
+//     subject: 'Email from Adolphine: A Test Message!',
+//     text: 'Some content to send'
+// };
 
-// e-mail transport configuration
+// // e-mail transport configuration
 
-let transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true, // use SSL
-    auth: {
-        user: credentials.user,
-        pass: credentials.pass
-    }
-});
+// let transporter = nodemailer.createTransport({
+//     host: 'smtp.gmail.com',
+//     port: 465,
+//     secure: true, // use SSL
+//     auth: {
+//         user: credentials.user,
+//         pass: credentials.pass
+//     }
+// });
 
 // transporter.sendMail(mailOptions, function(error, info){
 //     if (error) {
@@ -96,7 +100,7 @@ let transporter = nodemailer.createTransport({
 //       console.log('Email sent: ' + info.response);
 //     }
 // });
-}
+//}
 
 //change it to be neater, more advanced
 app.listen(5005, (error) => {

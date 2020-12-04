@@ -28,6 +28,8 @@
              const passwordRepeat = document.forms.accountSubmit.passwordRepeat.value;
              const email = username.concat("@simcorp.com");
 
+             //emailregex
+
              if (username.length < 2 || username.length > 4) {
                  Swal.fire("Please provide correct SC initials");
                  return false;
