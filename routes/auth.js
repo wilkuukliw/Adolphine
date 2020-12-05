@@ -199,7 +199,7 @@ router.post('/resetpassword', async (req, res) => {
 // Route for resetting password
 router.post('/passwordreset', async (req, res) => {
 
-    // Capture the information from the form
+    // Capture the information from the form  
     const username = req.body.username;
     const token = req.body.token;
     const password = req.body.password;

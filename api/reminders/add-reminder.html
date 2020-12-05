@@ -12,37 +12,24 @@
    <body>
       <form action="/schedule" method="POST" name="reminderSubmit" onsubmit="return validateForm()">
          <div class="form-row align-items-center">
-            <label for="item_1">Remind about..</label>
-            <input type="text" placeholder="Remind about.." name="item_1" id="item_1" required>   
-            <label for="item_2">Remind about..</label>
-            <input type="text" placeholder="Remind about.." name="item_2" id="item_2">  
-            <label for="item_3">Remind about..</label>
-            <input type="text" placeholder="Remind about.." name="item_3" id="item_3">  
-            <label for="item_4">Remind about..</label>
-            <input type="text" placeholder="Remind about.." name="item_4" id="item_4">  
-            <label for="item_5">Remind about..</label>
-            <input type="text" placeholder="Remind about.." name="item_5" id="item_5">  
-            <label for="created_by">Your SC initials:</label>
+               <label for="email_body">Remind about..</label>
+               <textarea name="email_body" id="email_body" rows="6" placeholder=""></textarea>
             <input type="text" placeholder="Your SC initials:" name="created_by" id="created_by" required>
             <label for="send_at">Schedule to be send at:</label>
             <input type="datetime-local" placeholder="Schedule to be send at:" name="send_at" id="send_at" required>
-            <button class="btn btn-primary" type="submit" id="submit">Submit</button>
-            <button class="btn btn-primary" id="cancel" onclick="window.location.href='/home'">Cancel</button>
+            <button type="submit" id="submit">Submit</button>
+            <button id="cancel" onclick="window.location.href='/home'">Cancel</button>
          </div>
       </form>
       <script>
          function validateForm() {
-             const item_1 = document.forms.reminderSubmit.item_1.value;
-             const item_2 = document.forms.reminderSubmit.item_2.value;
-             const item_3 = document.forms.reminderSubmit.item_3.value;
-             const item_4 = document.forms.reminderSubmit.item_4.value;
-             const item_5 = document.forms.reminderSubmit.item_5.value;
+             const email_body = document.forms.reminderSubmit.email_body.value;
              const created_by = document.forms.reminderSubmit.created_by.value;
              const send_at = document.forms.reminderSubmit.send_at.value;
          
              const numericReg = /^\+?\d*$/;
          
-             if (item_1.length < 4 && item_2.length < 4 && item_3.length < 4 && item_4.length < 4 && item_5.length < 4) {
+             if (email_body.length < 4) {
                  Swal.fire("Please be more specific");
                  return false;
              }
@@ -57,11 +44,11 @@
          }
          
          $("#submit").click(function() {
-             var item_1 = $("#item_1").val();
+             var email_body = $("#email_body").val();
              var send_at = $("#send_at").val();
              var created_by = $("#created_by").val();
                       
-             if ( item_1 == '' || send_at == '' || created_by == '' ) {
+             if ( email_body == '' || send_at == '' || created_by == '' ) {
              
                 Swal.fire({
                    title: "Fields empty",
@@ -85,7 +72,6 @@
              }
          });
 
-            
       </script>
    </body>
 </html>

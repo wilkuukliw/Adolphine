@@ -21,11 +21,7 @@ exports.up = function(knex) {
 
     .createTable('reminders', (table) => {
         table.increments('id').notNullable();
-        table.string('item_1').notNullable();
-        table.string('item_2').nullable();
-        table.string('item_3').nullable();
-        table.string('item_4').nullable();
-        table.string('item_5').nullable();
+        table.string('email_body').notNullable();
         table.string('created_by').notNullable();
         table.foreign('created_by').references('users.username');
         table.dateTime('send_at').notNullable();

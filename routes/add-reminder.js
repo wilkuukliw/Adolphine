@@ -14,9 +14,11 @@ router.get("/schedule", (req, res) => {
  });
 
 router.post("/schedule", async (req, res) => {
-    const { item_1, item_2, item_3, item_4, item_5, created_by, send_at } = req.body;
+    const { email_body, created_by, send_at } = req.body;
 
-    if (item_1 && item_2 && item_3 && item_4 && item_5 && created_by && send_at) {
+    //consider not to ask for credentials but fetch them from session instead
+
+    if (email_body && created_by && send_at) {
 
         try {
             const userFound = await User.query().select().where('username', created_by).limit(1);
@@ -28,11 +30,7 @@ router.post("/schedule", async (req, res) => {
 
             const createdReminder = await Reminder.query().insert({
 
-                item_1,
-                item_2,
-                item_3,
-                item_4,
-                item_5,
+                email_body,
                 created_by,
                 send_at
 

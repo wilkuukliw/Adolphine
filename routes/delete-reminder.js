@@ -34,4 +34,3 @@ router.post("/delete-reminder", async (req, res) => {
 });
 
 module.exports = router;
-

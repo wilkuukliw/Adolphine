@@ -1,6 +1,6 @@
   /* Navbar */
 
-a, h1 {
+a, h1, label {
     font-family: 'Thasadith', sans-serif;
     font-weight: 700; 
     color: #000000 !important; 
@@ -142,7 +142,7 @@ footer {
 input[type=text], input[type=password] {
     width: 14%;
     padding: 12px 12px;
-    margin: -20px;
+    margin: 27px;
     display: block;
     border-radius: 30px;
 }
@@ -176,8 +176,9 @@ display: block;
 }
 
 label {
-display: inline-block;
-margin: 25px;
+  display: block;
+  margin-bottom: 30px;
+  margin-top: 30px;
 }
 
 .floating-btn-add {
@@ -209,6 +210,21 @@ border-radius: 100%;
 .floating-btn:hover {
 background-color: pink;
 }
+
+textarea {
+    font-size: .10rem;
+    letter-spacing: 1px;
+}
+textarea {
+    padding: 10px;
+    width: 750px;
+    height: 350px;
+    line-height: 1.5;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px #999;
+}
+
 
 @keyframes move {
     0% {
