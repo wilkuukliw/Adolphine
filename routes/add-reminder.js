@@ -2,6 +2,9 @@ const router = require('express').Router();
 const path = require('path');
 const Reminder = require('../models/Reminder.js');
 const User = require('../models/User.js');
+const dispatcher = require("../dispatcher/dispatcher.js");
+const schedule = require('node-schedule');
+const nodemailer = require("nodemailer");
 
 
 router.get("/schedule", (req, res) => {
@@ -36,6 +39,14 @@ router.post("/schedule", async (req, res) => {
 
             });
 
+            console.log(createdReminder);
+
+            var s = schedule.scheduleJob(createdReminder.send_at, function(){
+                console.log("Sending");
+
+                dispatcher(createdReminder);
+            })
+       
             //first show alert and then redirect
 
         }

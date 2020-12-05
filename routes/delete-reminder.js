@@ -33,4 +33,6 @@ router.post("/delete-reminder", async (req, res) => {
 
 });
 
+// consider clearing reminders that were sent already
+
 module.exports = router;
