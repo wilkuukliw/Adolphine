@@ -1,109 +1,55 @@
+<title>Delete a subscriber</title>
+</head>
+<body>
+   <form action="/delete-subscriber" method="post" name="deleteSubmit" onsubmit="return validateForm()">
+      <div class="form-row align-items-center">
+         <label for="emial">Remove from the mailing list..</label>
+         <input type="text" placeholder="Remove from the mailing list.." name="email" id="email" required>
+         <button class="btn btn-primary" type="submit" id="submit">Submit</button>
+         <button class="btn btn-primary" id="cancel" onclick="window.location.href='/home'">Cancel</button>
+      </div>
+   </form>
+   <script>
 
-      <title>Delete a subscriber</title>
-   <body>
-      <form action="/delete-subscriber" method="post" name="deleteSubmit" onsubmit="return validateForm()">
-         <div class="form-row align-items-center">
-            <label for="emial">Remove from the mailing list..</label>
-            <input type="text" placeholder="Remove from the mailing list.." name="email" id="email" required>   
-            <button class="btn btn-primary" type="submit" id="submit">Submit</button>
-            <button class="btn btn-primary" id="cancel" onclick="window.location.href='/home'">Cancel</button>
-         </div>
-      </form>
-      <script>
-
-function validateForm() {
+      function validateForm() {
          const email = document.forms.deleteSubmit.email.value;
-         
+
          const emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/
-     
+
 
          if (!emailReg.test(email)) {
-             Swal.fire("Please enter correct email");
-             return false;
+            Swal.fire("Please enter correct email");
+            return false;
          }
-     
          return true;
+      }
 
-        }
-         
-         $("#submit").click(function() {
-             var email = $("#email").val();
-                      
-             if ( email == '' ) {
-             
-                Swal.fire({
-                   title: "Fields empty",
-                   text: "Please fill the missing fields",
-                   icon: "warning",
-                   button: "OK"
-                });
-             } else {
-                
-                Swal.fire({
-                  title: "User removed!",
-                  icon: "success",
-                  confirmButtonColor: '#3085d6',
-                  confirmButtonText: 'OK'
-                }).then(function(result) {
-                  if (result.value) {
-                    location.assign("http://localhost:5005/subscribers")
-                  }
-              });
-             }
-         });
-         
-//removing from the table without reloading
+      $("#submit").click(function () {
+         var email = $("#email").val();
 
-// $(document).ready(function() {
-//     var url = window.location.href;
-//     var pathArray = url.split("/");
-//     var id = pathArray[4];
+         if (email == '') {
 
-//          $(document).ready(function() {
-            
-         
-//          $.ajax({                                  
-//          "url": "/subscribers/collection/" + id,
-//          "type": "GET",
-//          "datatype": 'json',
-         
-//          "success": function(x) {
-         
-//             $('#subscribers').DataTable({
-//                 data: x.response,
-//                 rowId: 'id',
-//                 "ordering": false,
-//                 "searching": true,
-         
-//                 columns: [
-         
-//                     { data: 'id' },
-//                     { data: 'email' },
-//                     { data: 'updatedAt' },
-//                     { data: 'createdAt' },
+            Swal.fire({
+               title: "Fields empty",
+               text: "Please fill the missing fields",
+               icon: "warning",
+               button: "OK"
+            });
+         } else {
 
-//                 ],
+            Swal.fire({
+               title: "User removed!",
+               icon: "success",
+               confirmButtonColor: '#3085d6',
+               confirmButtonText: 'OK'
+            }).then(function (result) {
+               if (result.value) {
+                  location.assign("http://localhost:5005/subscribers")
+               }
+            });
+         }
+      });
+   </script>
+</body>
 
-//             });
-//             var table = $('#subscribers').DataTable();
- 
-//  $('#subscribers').on( 'click', 'tbody tr', function () {
-
-//    var id = table.row(this).id();
-
-//    var td = $(this).closest("tr"); 
-//   if (td.hasClass("child")) {td.prev('.parent').remove();}
-//   td.remove();
-
-//   window.location = "http://localhost:5005/delete-subscriber/" + id;
-
-//  } );
-
-//          }})})});
-
-         
-
-
-      </script>
-   </body>
 </html>

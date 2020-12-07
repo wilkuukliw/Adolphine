@@ -3,7 +3,7 @@ const { Model } = require('objection');
 const User = require('./User.js')
 
 class Reminder extends Model {
-    
+
     static tableName = 'reminders';
 
     static relationMappings = {
@@ -14,8 +14,8 @@ class Reminder extends Model {
             join: {
                 from: 'reminders.createdBy',
                 to: 'users.username'
+            }
         }
-    }
     }
 }
 
