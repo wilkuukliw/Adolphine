@@ -12,7 +12,6 @@ app.use(session({
     saveUninitialized: true
 }));
 
-
 const navbarPage = fs.readFileSync("api/navbar/navbar.html", "utf8");  
 const footerPage = fs.readFileSync("api/footer.html", "utf8");
 const homePage = fs.readFileSync("api/homepage.html", "utf8");   
