@@ -225,6 +225,19 @@ textarea {
     box-shadow: 1px 1px 1px #999;
 }
 
+/* dark mode */
+
+html[data-theme='dark'] {
+  --background-primary: #030303;
+  --color-primary: #ccc;
+
+}
+
+html {
+  transition: color 300ms, background-color 300ms;
+  background: var(--background-primary);
+  color: var(--color-primary);
+}
 
 @keyframes move {
     0% {
