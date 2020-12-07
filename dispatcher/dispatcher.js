@@ -1,6 +1,7 @@
 const credentials = require("../config/mailCredentials");
 const nodemailer = require("nodemailer");
 const moment = require("moment-timezone");
+const Subscriber = require('../models/Subscriber.js');
 
 const dispatcher = async ({
 emailBody,
@@ -26,26 +27,24 @@ let transporter = nodemailer.createTransport({
    await transporter.verify();
   console.log("email account ready");
 
-  // get emails from database
-//var mailingList =["anna.maria.wilczek@gmail.com", "anna.wilczek@student.uw.edu.pl", "anwi@simcorp.com" ];
- //mailingList.toString();
   
-  const concatEmail = "anna.maria.wilczek@gmail.com";  //username.concat("@simcorp.com");
- // email ="anna.maria.wilczek@gmail.com";
+
+   var subscribers = await Subscriber.query().select('email');
+
+  let mailingList = [];
+
+  subscribers.forEach(id => {
+        mailingList.push(id.email)
+  });
 
  
-  
 
-   var subscribers = [  async () => {
-    await Subscriber.query().select();
-  }];
-
-  subscribers.toString();
+  console.log(subscribers);
 
   var mailOptions = {
     
       from: credentials.user,  //`${email} `, // list of receivers
-      to: concatEmail,
+      to: mailingList,
       subject: "Adolphine - New reminder delivered",
       html: `
              <p>Dear SimCorper</p>
@@ -60,7 +59,7 @@ let transporter = nodemailer.createTransport({
     };
 
 
-    transporter.sendMail(mailOptions, (error, data) => {
+    transporter.sendMail(mailOptions, (error) => {
       if (error) {
           console.log(error)
           return
