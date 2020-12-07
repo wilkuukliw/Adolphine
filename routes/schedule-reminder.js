@@ -2,25 +2,15 @@ const router = require('express').Router();
 const path = require('path');
 const Reminder = require('../models/Reminder.js');
 const User = require('../models/User.js');
-//const dispatcher = require("../dispatcher/dispatcher.js");
 const schedule = require('node-schedule');
 const nodemailer = require('nodemailer');
 const credentials = require("../config/mailCredentials");
 const Subscriber = require('../models/Subscriber.js');
 
-router.get("/schedule", (req, res) => {
-
- //   if(req.session.user) {
-        return res.sendFile(path.join(__dirname, '../api/reminders/add-reminder.html'));
- //   } else {
-//        return res.redirect('/login');
- //   }
- });
-
 router.post("/schedule", async (req, res) => {
     const { email_body, created_by, send_at } = req.body;
 
-    //consider not to ask for credentials but fetch them from session instead
+    //consider not to ask for sc username but fetch it from session instead
 
     if (email_body && created_by && send_at) {
 

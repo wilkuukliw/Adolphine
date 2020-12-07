@@ -1,20 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Reminders</title>
-      <link rel="stylesheet" type="text/css" href="/api/global.css">
-      <link rel="icon" href="/api/img/calendar.png">
-    </style>
 
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" ></script>
-      <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
-      <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/uikit/3.0.2/css/uikit.min.css">
-      <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.22/css/dataTables.uikit.min.css">
-      <script src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-      <script src="//cdn.datatables.net/1.10.22/js/dataTables.uikit.min.js"></script>
-   </head>
+      <title>Reminders</title>
    <body>
       <table id="reminders" class="hover" style="width:90%">
          <thead>
@@ -25,8 +10,6 @@
                <th>To be send at</th>
                <th>Last updated</th>
                <th>Created at</th>
-               <th>Deleted?</th>
-               <th>Deleted at</th>
             </tr>
          </thead>
          <tbody>
@@ -67,8 +50,6 @@
                     { data: 'sendAt' },
                     { data: 'updatedAt' },
                     { data: 'createdAt' },
-                    { data: 'isDeleted' },
-                    { data: 'deletedAt' },
   
                 ],
             });

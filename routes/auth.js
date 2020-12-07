@@ -69,9 +69,9 @@ router.post('/login', async (req, res) => {
     return res.status(400).send({ response: "Incorrect password" });
 });
 
-router.get('/signup', (req, res) => {
-    return res.sendFile(path.join(__dirname, '../api/account/signup.html'));
-});
+// router.get('/signup', (req, res) => {
+//     return res.sendFile(path.join(__dirname, '../api/account/signup.html'));
+// });
 
 router.post('/signup', async (req, res) => {   
  
@@ -143,17 +143,6 @@ router.get("/logout", (req, res) => {
 
 
 // Route for initiating password reset and send email
-
-// Page to initiate password reset process
-router.get('/resetpassword', (req, res) => {
-    return res.sendFile(path.join(__dirname, '../api/account/sendresetmail.html'));
-});
-
-// landing page for resetting password after getting the email with the token in it
-router.get('/passwordreset', (req, res) => {
-    return res.sendFile(path.join(__dirname, '../api/account/resetpassword.html'));
-    
-});
 
 router.post('/resetpassword', async (req, res) => {
     const { username } = req.body;

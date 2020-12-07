@@ -1,18 +1,11 @@
-<button onclick="toggleTheme('dark');"><img src="/api/img/moon.svg"></button>
-    
-<button onclick="toggleTheme('light');"><img src="/api/img/sun.svg"></button>
 
-<head>
-    <link rel="stylesheet" type="text/css" href="/api/global.css">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Faster+One&family=Thasadith&display=swap" rel="stylesheet">
- </head>
  <footer>
     <p id="copyright-paragraph">Coopyright ©</p>
  </footer>
  <script>
     const currentYear = new Date().getFullYear();
     $("#copyright-paragraph").text("Coopyright Anna Maria Wilczek © " + currentYear);
+
 
 // Capture the current theme from local storage and adjust the page to use the current theme.
 const htmlEl = document.getElementsByTagName('html')[0];

@@ -20,8 +20,9 @@ nav ul {
     display: block;
     margin: 0 auto;
     text-align: center;
-    line-height: 55px;
+    line-height: 80px;
     margin-bottom: 100px;
+    font-size: larger;
 }
   
 nav ul li {
@@ -76,6 +77,7 @@ nav ul li {
 
 body {
     background-image: radial-gradient( circle 673px at 10% 20%,  rgb(243, 224, 194) 0%, rgb(189, 245, 237) 48.5%, rgb(197, 213, 250) 97.8% );
+    transition: 0s;
     background-repeat: no-repeat;
     font-family: 'Thasadith', sans-serif;
     font-size: 1.1rem;
@@ -98,17 +100,16 @@ body {
 button {
     background-color: #FCFADE;
     padding: 10px 10px;
-    margin: 45px;
     border: none;
     cursor: pointer;
     position: center;
     font-family: 'Thasadith', sans-serif;
     font-size: 1em;
     border-radius: 35px;
-	line-height: 50px;
-	border: none;
-    padding: 0 30px;
-    display: block;
+    display: -webkit-inline-box;
+    overflow: hidden;
+    outline:none;
+    margin-top: -100px;
 }
 
 button:hover {
@@ -121,6 +122,14 @@ button:hover {
     display: flex;
 }
 
+.toogles-container {
+  display: flex; 
+  justify-content: flex-end;
+  margin-right: 20px;
+  margin-top: -16px;
+
+
+}
 
 
   /* Footer */
@@ -227,17 +236,14 @@ textarea {
 
 /* dark mode */
 
+
 html[data-theme='dark'] {
-  --background-primary: #030303;
   --color-primary: #ccc;
+   mix-blend-mode: difference;
+   transition: 0s;
+  }
 
-}
 
-html {
-  transition: color 300ms, background-color 300ms;
-  background: var(--background-primary);
-  color: var(--color-primary);
-}
 
 @keyframes move {
     0% {

@@ -20,11 +20,6 @@ router.get("/getsessionvalue", (req, res) => {
     return res.send({ response: req.sessionID });
 });
 
-
-router.get('/users', (req,res) => {
-    return res.sendFile(path.join(__dirname, '../api/account/users.html'));
-});
-
 router.get('/users/collection', async (req,res) => {
     const users = await User.query().select();
     return res.send({ response : users });
