@@ -17,28 +17,29 @@
         <tbody>
         </tbody>
     </table>
+
     <div class="floating-btn">
-        <a class="floating-btn" href="/signup">+</a>
+        <a class=" floating-btn" href='/signup'>+</a>
     </div>
     <script>
         $(document).ready(function() {
             $.ajax({
-                "url": "/users/collection",
-                "type": "GET",
-                "datatype": 'json',
+                'url': '/users/collection',
+                'type': 'GET',
+                'datatype': 'json',
 
-                "success": function(x) {
+                'success': function(x) {
 
                     $('#users').DataTable({
                         data: x.response,
                         rowId: 'id',
-                        "ordering": false,
-                        "searching": true,
+                        'ordering': false,
+                        'searching': true,
 
-                        "columnDefs": [{
-                            "className": "dt-center",
-                            "targets": "_all",
-                            "data": null,
+                        'columnDefs': [{
+                            'className': 'dt-center',
+                            'targets': '_all',
+                            'data': null,
                         }],
                         columns: [
 

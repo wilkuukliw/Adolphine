@@ -22,7 +22,7 @@ let transporter = nodemailer.createTransport({
     }
 });
 
-const concatEmail = "anna.maria.wilczek@gmail.com"; //username.concat("@simcorp.com");
+const concatEmail = 'anna.maria.wilczek@gmail.com'; //username.concat('@simcorp.com');
 
 function mailSender(email, subject, message) {
     // Send email to to notify that user has been created
@@ -50,7 +50,7 @@ router.post('/login', async(req, res) => {
     try {
         const userFound = await User.query().select().where('username', username);
         if (userFound.length === 0) {
-            return res.status(400).send({ response: "User does not exist" });
+            return res.status(400).send({ response: 'User does not exist' });
         }
 
         const match = await bcrypt.compare(password, userFound[0].password);
@@ -60,18 +60,14 @@ router.post('/login', async(req, res) => {
             req.session.username = username;
             req.session.user = { id: userFound[0].id, role: userFound[0].role_id }
             req.session.uuid = userFound[0].uuid; // // Add the users UUID, to show that we are logged in with the specific user
-            return res.redirect("/home");
+            return res.redirect('/home');
         }
 
     } catch (error) {
-        return res.status(500).send({ response: "Something went wrong with the database" + error });
+        return res.status(500).send({ response: 'Something went wrong with the database' + error });
     }
-    return res.status(400).send({ response: "Incorrect password" });
+    return res.status(400).send({ response: 'Incorrect password' });
 });
-
-// router.get('/signup', (req, res) => {
-//     return res.sendFile(path.join(__dirname, '../api/account/signup.html'));
-// });
 
 router.post('/signup', async(req, res) => {
 
@@ -81,19 +77,19 @@ router.post('/signup', async(req, res) => {
 
     if (username && password && isPasswordTheSame) {
         if (password.length < 8) {
-            return res.status(400).send({ response: "Password does not fulfill the requirements" });
+            return res.status(400).send({ response: 'Password does not fulfill the requirements' });
         } else {
             try {
                 const userFound = await User.query().select().where({ 'username': username }).limit(1);
                 if (userFound.length > 0) {
-                    return res.status(400).send({ response: "User already exists" });
+                    return res.status(400).send({ response: 'User already exists' });
                 } else {
 
                     // Role model uses await instead (promise)
                     const defaultUserRoles = await Role.query().select().where({ 'role': 'USER' });
 
                     const hashedPassword = await bcrypt.hash(password, saltRounds);
-                    const concatEmail = "anna.maria.wilczek@gmail.com"; //username.concat("@simcorp.com");
+                    const concatEmail = 'anna.maria.wilczek@gmail.com'; //username.concat('@simcorp.com');
 
                     // Create the UUID for the user, that we are going to use as an identifier in our session
 
@@ -109,38 +105,28 @@ router.post('/signup', async(req, res) => {
 
                     mailSender(concatEmail, 'Adolphine - User created succesfully',
                         `A user has just been created using this email. \nIf you did not create this user, please notify us!\n\nKind regards\n Adolhpine`);
-
-                    // alert and redirect
                 }
 
             } catch (error) {
-                return res.status(500).send({ response: "Something went wrong with the database" + error });
+                return res.status(500).send({ response: 'Something went wrong with the database' + error });
             }
-
         }
 
     } else if (password && passwordRepeat && !isPasswordTheSame) {
-        return res.status(400).send({ response: "Passwords do not match. Fields: password and passwordRepeat" });
-    } else {
-
-        // sweetalert
-        // return res.status(404).send({ response: "Missing fields: username, password, passwordRepeat" });
-
-        //return res.redirect('/login?status=missingfields'); 
+        return res.status(400).send({ response: 'Passwords do not match. Fields: password and passwordRepeat' });
     }
 
 });
 
-router.get("/logout", (req, res) => {
+router.get('/logout', (req, res) => {
     req.session.uuid = null;
     req.session.destroy((error) => {
         if (error) {
-            return res.send({ response: "Something went wrong: " + error });
+            return res.send({ response: 'Something went wrong: ' + error });
         }
-        return res.redirect("/login");
+        return res.redirect('/login');
     });
 });
-
 
 // Route for initiating password reset and send email
 
@@ -153,7 +139,7 @@ router.post('/resetpassword', async(req, res) => {
     // If user exists
     if (userFound.length > 0) {
 
-        email = "anna.maria.wilczek@gmail.com";
+        email = 'anna.maria.wilczek@gmail.com';
 
         // If the mail provided is the one associated with the user
         if (email != undefined && email == userFound[0].email) {
@@ -168,19 +154,15 @@ router.post('/resetpassword', async(req, res) => {
                 `Go to http://localhost:5005/passwordReset?username=${username}&token=${userToken} to reset password.\n\n` +
                 `If you did not do this, you can ignore this mail.\n\nKind regards,\nAdolphine`
             )
-
-
-            // send sweetalert and redirect
-            //return res.redirect('/login');
         }
         // If the email is wrong
         else {
-            return res.send({ response: "User or email is not correct" });
+            return res.send({ response: 'User or email is not correct' });
         }
 
         // If the user does not exist
     } else {
-        return res.send({ response: "User does not exist" });
+        return res.send({ response: 'User does not exist' });
     }
 
 });
@@ -210,12 +192,12 @@ router.post('/passwordreset', async(req, res) => {
         }
         // Passwords does not match
         else {
-            return res.status(401).send({ response: "Passwords must match eachother" });
+            return res.status(401).send({ response: 'Passwords must match eachother' });
         }
     }
     // User provided an invalid token
     else {
-        return res.status(401).send({ response: "Invalid token entered" });
+        return res.status(401).send({ response: 'Invalid token entered' });
     }
 });
 

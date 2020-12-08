@@ -1,6 +1,6 @@
-const express = require("express");
+const express = require('express');
 const app = express();
-const fs = require("fs");
+const fs = require('fs');
 const session = require('express-session');
 
 app.use(express.static('.'));
@@ -12,32 +12,31 @@ app.use(session({
     saveUninitialized: true
 }));
 
-const navbarPage = fs.readFileSync("api/navbar/navbar.html", "utf8");
-const headPage = fs.readFileSync("api/navbar/head.html", "utf8");
-const footerPage = fs.readFileSync("api/footer.html", "utf8");
-const homePage = fs.readFileSync("api/homepage.html", "utf8");
-const loginPage = fs.readFileSync("api/account/login.html", "utf8");
-const resetPasswordPage = fs.readFileSync("api/account/resetpassword.html", "utf8");
-const sendResetPasswordPage = fs.readFileSync("api/account/sendresetmail.html", "utf8");
-const signupPage = fs.readFileSync("api/account/signup.html", "utf8");
-const usersPage = fs.readFileSync("api/account/users.html", "utf8");
-const deleteReminderPage = fs.readFileSync("api/reminders/delete-reminder.html", "utf8");
-const scheduleReminderPage = fs.readFileSync("api/reminders/schedule-reminder.html", "utf8");
-const remindersrPage = fs.readFileSync("api/reminders/reminders.html", "utf8");
-const addSubscriberPage = fs.readFileSync("api/subscribers/add-subscriber.html", "utf8");
-const deleteSubscriberPage = fs.readFileSync("api/subscribers/delete-subscriber.html", "utf8");
-const subscribersPage = fs.readFileSync("api/subscribers/subscribers.html", "utf8");
+const navbarPage = fs.readFileSync('api/navbar/navbar.html', 'utf8');
+const headPage = fs.readFileSync('api/navbar/head.html', 'utf8');
+const footerPage = fs.readFileSync('api/footer.html', 'utf8');
+const homePage = fs.readFileSync('api/homepage.html', 'utf8');
+const loginPage = fs.readFileSync('api/account/login.html', 'utf8');
+const resetPasswordPage = fs.readFileSync('api/account/resetpassword.html', 'utf8');
+const sendResetPasswordPage = fs.readFileSync('api/account/sendresetmail.html', 'utf8');
+const signupPage = fs.readFileSync('api/account/signup.html', 'utf8');
+const usersPage = fs.readFileSync('api/account/users.html', 'utf8');
+const deleteReminderPage = fs.readFileSync('api/reminders/delete-reminder.html', 'utf8');
+const scheduleReminderPage = fs.readFileSync('api/reminders/schedule-reminder.html', 'utf8');
+const remindersrPage = fs.readFileSync('api/reminders/reminders.html', 'utf8');
+const addSubscriberPage = fs.readFileSync('api/subscribers/add-subscriber.html', 'utf8');
+const deleteSubscriberPage = fs.readFileSync('api/subscribers/delete-subscriber.html', 'utf8');
+const subscribersPage = fs.readFileSync('api/subscribers/subscribers.html', 'utf8');
 
-app.get("/", (req, res) => {
+app.get('/', (req, res) => {
     return res.send(headPage + loginPage + footerPage);
 });
 
-app.get("/login", (req, res) => {
+app.get('/login', (req, res) => {
     return res.send(headPage + loginPage + footerPage);
 });
 
-app.get("/home", (req, res) => {
-
+app.get('/home', (req, res) => {
     if (req.session.user) {
         return res.send(headPage + navbarPage + homePage + footerPage);
     } else {
@@ -49,7 +48,7 @@ app.get('/signup', (req, res) => {
     return res.send(headPage + signupPage + footerPage);
 });
 
-app.get("/subscribe", (req, res) => {
+app.get('/subscribe', (req, res) => {
     return res.send(headPage + addSubscriberPage + footerPage);
 });
 
@@ -59,36 +58,54 @@ app.get('/resetpassword', (req, res) => {
 
 app.get('/passwordreset', (req, res) => {
     return res.send(headPage + sendResetPasswordPage + footerPage);
-
 });
 
 app.get('/users', (req, res) => {
-    return res.send(headPage + usersPage + footerPage);
+    if (req.session.user) {
+        return res.send(headPage + usersPage + footerPage);
+    } else {
+        return res.redirect('/login');
+    }
 });
 
 app.get('/delete-reminder', (req, res) => {
-    return res.send(headPage + deleteReminderPage + footerPage);
+    if (req.session.user) {
+        return res.send(headPage + deleteReminderPage + footerPage);
+    } else {
+        return res.redirect('/login');
+    }
 });
 
 app.get('/delete-subscriber', (req, res) => {
-    return res.send(headPage + deleteSubscriberPage + footerPage);
+    if (req.session.user) {
+        return res.send(headPage + deleteSubscriberPage + footerPage);
+    } else {
+        return res.redirect('/login');
+    }
 });
 
 app.get('/reminders', (req, res) => {
-    return res.send(headPage + remindersrPage + footerPage);
+    if (req.session.user) {
+        return res.send(headPage + remindersrPage + footerPage);
+    } else {
+        return res.redirect('/login');
+    }
 });
 
-app.get("/schedule", (req, res) => {
-
-    //   if(req.session.user) {
-    return res.send(headPage + scheduleReminderPage + footerPage);
-    //   } else {
-    //        return res.redirect('/login');
-    //   }
+app.get('/schedule', (req, res) => {
+    if (req.session.user) {
+        return res.send(headPage + scheduleReminderPage + footerPage);
+    } else {
+        return res.redirect('/login');
+    }
 });
 
 app.get('/subscribers', (req, res) => {
-    return res.send(headPage + subscribersPage + footerPage);
+    if (req.session.user) {
+        return res.send(headPage + subscribersPage + footerPage);
+    } else {
+        return res.redirect('/login');
+    }
 });
 
 const authRoute = require('./routes/auth.js');
@@ -121,7 +138,7 @@ Model.knex(knex);
 //change it to be neater, more advanced
 app.listen(5005, (error) => {
     if (error) {
-        console.log("Error running the server");
+        console.log('Error running the server');
     }
-    console.log("Server running on port 5005");
+    console.log('Server running on port 5005');
 });

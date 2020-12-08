@@ -14,10 +14,10 @@
     <script>
         function validateForm() {
             const username = document.forms.usernameSubmit.username.value;
-            const email = "anna.maria.wilczek@gmail.com"; //username.concat("@simcorp.com");
+            const email = 'anna.maria.wilczek @gmail.com'; //username.concat('@simcorp.com');
 
             if (username.length < 2 || username.length > 4) {
-                Swal.fire("Please provide correct SC initials");
+                Swal.fire('Please provide correct SC initials');
                 return false;
             }
 
@@ -25,28 +25,28 @@
 
         }
 
-        $("#submit").click(function() {
+        $('#submit').click(function() {
 
-            var username = $("#username").val();
+            var username = $('#username').val();
 
             if (username == '') {
 
                 Swal.fire({
-                    title: "Username empty",
-                    text: "Please fill the missing field",
-                    icon: "warning",
-                    button: "OK"
+                    title: 'Username empty',
+                    text: 'Please fill the missing field',
+                    icon: 'warning',
+                    button: 'OK'
                 });
 
             } else {
                 Swal.fire({
-                    title: "Please check your e-mail",
-                    text: "Link with password reset has been sent",
-                    icon: "success",
+                    title: 'Please check your e-mail',
+                    text: 'Link with password reset has been sent',
+                    icon: 'success',
                     confirmButtonText: 'OK'
                 }).then(function(result) {
                     if (result.value) {
-                        location.assign("http://localhost:5005/login")
+                        location.assign('http://localhost:5005/login')
                     }
                 });
             }

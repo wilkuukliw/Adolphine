@@ -5,8 +5,8 @@
     <form action="/schedule" method="POST" name="reminderSubmit" onsubmit="return validateForm()">
         <div class="form-row align-items-center">
             <label for="email_body">
-            <h2>Remind about..</h2>
-         </label>
+           <h2>Remind about..</h2>
+        </label>
             <textarea name="email_body" id="email_body" rows="6" placeholder=""></textarea>
             <input type="text" placeholder="Your SC initials:" name="created_by" id="created_by" required>
             <label for="send_at">Schedule to be send at:</label>
@@ -22,43 +22,58 @@
             const send_at = document.forms.reminderSubmit.send_at.value;
 
             const numericReg = /^\+?\d*$/;
+            var now = new Date();
 
             if (email_body.length < 4) {
-                Swal.fire("Please be more specific");
+                Swal.fire('Please be more specific');
                 return false;
             }
 
             if (numericReg.test(created_by)) {
-                Swal.fire("Please enter alphabetic characters only for the initials");
+                Swal.fire('Please enter alphabetic characters only for the initials');
                 return false;
             }
+
+            if (!isFutureDate(send_at)) {
+                Swal.fire('Please check the date - it seems to be in the past');
+                return false;
+            }
+
             return true;
         }
 
-        $("#submit").click(function() {
-            var email_body = $("#email_body").val();
-            var send_at = $("#send_at").val();
-            var created_by = $("#created_by").val();
+        function isFutureDate(idate) {
+            var today = new Date().getTime(),
+                idate = idate.split('/');
+
+            idate = new Date(idate[2], idate[1] - 1, idate[0]).getTime();
+            return (today - idate) < 0;
+        }
+
+        $('#submit').click(function() {
+            var email_body = $('#email_body').val();
+            var send_at = $('#send_at').val();
+            var created_by = $('#created_by').val();
 
             if (email_body == '' || send_at == '' || created_by == '') {
 
                 Swal.fire({
-                    title: "Fields empty",
-                    text: "Please fill the missing fields",
-                    icon: "warning",
-                    button: "OK"
+                    title: 'Fields empty',
+                    text: 'Please fill the missing fields',
+                    icon: 'warning',
+                    button: 'OK'
                 });
             } else {
 
                 Swal.fire({
-                    title: "Reminder has been created succesfully",
-                    text: "Thank you!",
-                    icon: "success",
+                    title: 'Reminder has been created succesfully',
+                    text: 'Thank you!',
+                    icon: 'success',
                     confirmButtonColor: '#3085d6',
                     confirmButtonText: 'OK'
                 }).then(function(result) {
                     if (result.value) {
-                        location.assign("http://localhost:5005/home")
+                        location.assign('http://localhost:5005/home')
                     }
                 });
             }
