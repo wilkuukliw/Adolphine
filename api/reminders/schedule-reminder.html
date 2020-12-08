@@ -1,71 +1,68 @@
 <title>New reminder</title>
 </head>
+
 <body>
-   <form action="/schedule" method="POST" name="reminderSubmit" onsubmit="return validateForm()">
-      <div class="form-row align-items-center">
-         <label for="email_body">
+    <form action="/schedule" method="POST" name="reminderSubmit" onsubmit="return validateForm()">
+        <div class="form-row align-items-center">
+            <label for="email_body">
             <h2>Remind about..</h2>
          </label>
-         <textarea name="email_body" id="email_body" rows="6" placeholder=""></textarea>
-         <input type="text" placeholder="Your SC initials:" name="created_by" id="created_by" required>
-         <label for="send_at">Schedule to be send at:</label>
-         <input type="datetime-local" placeholder="Schedule to be send at:" name="send_at" id="send_at" required>
-         <button type="submit" id="submit">Submit</button>
-         <button id="cancel" onclick="window.location.href='/home'">Cancel</button>
-      </div>
-   </form>
-   <script>
-      function validateForm() {
-         const email_body = document.forms.reminderSubmit.email_body.value;
-         const created_by = document.forms.reminderSubmit.created_by.value;
-         const send_at = document.forms.reminderSubmit.send_at.value;
+            <textarea name="email_body" id="email_body" rows="6" placeholder=""></textarea>
+            <input type="text" placeholder="Your SC initials:" name="created_by" id="created_by" required>
+            <label for="send_at">Schedule to be send at:</label>
+            <input type="datetime-local" placeholder="Schedule to be send at:" name="send_at" id="send_at" required>
+            <button type="submit" id="submit">Submit</button>
+            <button id="cancel" onclick="window.location.href='/home'">Cancel</button>
+        </div>
+    </form>
+    <script>
+        function validateForm() {
+            const email_body = document.forms.reminderSubmit.email_body.value;
+            const created_by = document.forms.reminderSubmit.created_by.value;
+            const send_at = document.forms.reminderSubmit.send_at.value;
 
-         const numericReg = /^\+?\d*$/;
+            const numericReg = /^\+?\d*$/;
 
-         if (email_body.length < 4) {
-            Swal.fire("Please be more specific");
-            return false;
-         }
+            if (email_body.length < 4) {
+                Swal.fire("Please be more specific");
+                return false;
+            }
 
-         if (numericReg.test(created_by)) {
-            Swal.fire("Please enter alphabetic characters only for the initials");
-            return false;
-         }
-         return true;
-      }
+            if (numericReg.test(created_by)) {
+                Swal.fire("Please enter alphabetic characters only for the initials");
+                return false;
+            }
+            return true;
+        }
 
-      $("#submit").click(function () {
-         var email_body = $("#email_body").val();
-         var send_at = $("#send_at").val();
-         var created_by = $("#created_by").val();
+        $("#submit").click(function() {
+            var email_body = $("#email_body").val();
+            var send_at = $("#send_at").val();
+            var created_by = $("#created_by").val();
 
-         if (email_body == '' || send_at == '' || created_by == '') {
+            if (email_body == '' || send_at == '' || created_by == '') {
 
-            Swal.fire({
-               title: "Fields empty",
-               text: "Please fill the missing fields",
-               icon: "warning",
-               button: "OK"
-            });
-         } else {
+                Swal.fire({
+                    title: "Fields empty",
+                    text: "Please fill the missing fields",
+                    icon: "warning",
+                    button: "OK"
+                });
+            } else {
 
-            Swal.fire({
-               title: "Reminder has been created succesfully",
-               text: "Thank you!",
-               icon: "success",
-               confirmButtonColor: '#3085d6',
-               confirmButtonText: 'OK'
-            }).then(function (result) {
-               if (result.value) {
-                  location.assign("http://localhost:5005/home")
-               }
-            });
-         }
-      });
+                Swal.fire({
+                    title: "Reminder has been created succesfully",
+                    text: "Thank you!",
+                    icon: "success",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'OK'
+                }).then(function(result) {
+                    if (result.value) {
+                        location.assign("http://localhost:5005/home")
+                    }
+                });
+            }
+        });
+    </script>
 
-   </script>
-</body>
-
-</html>
-
-<!-- //if date is before now do not accept reminder -->
+    <!-- //if date is before now do not accept reminder -->

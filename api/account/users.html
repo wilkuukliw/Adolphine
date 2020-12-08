@@ -1,60 +1,66 @@
 <title>Accounts</title>
 </head>
+
 <body>
-   <table id="users" class="hover" style="width:90%">
-      <thead>
-         <tr>
-            <th>#</th>
-            <th>Username</th>
-            <th>Enrypted password</th>
-            <th>E-mail</th>
-            <th>Role id</th>
-            <th>Last updated</th>
-            <th>Created at</th>
-         </tr>
-      </thead>
-      <tbody>
-      </tbody>
-   </table>
-   <div class="floating-btn">
-      <a class="floating-btn" href="/signup">+</a>
-   </div>
-   <script>
-      $(document).ready(function () {
-         $.ajax({
-            "url": "/users/collection",
-            "type": "GET",
-            "datatype": 'json',
+    <table id="users" class="hover" style="width:90%">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Username</th>
+                <th>Enrypted password</th>
+                <th>E-mail</th>
+                <th>Role id</th>
+                <th>Last updated</th>
+                <th>Created at</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div class="floating-btn">
+        <a class="floating-btn" href="/signup">+</a>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                "url": "/users/collection",
+                "type": "GET",
+                "datatype": 'json',
 
-            "success": function (x) {
+                "success": function(x) {
 
-               $('#users').DataTable({
-                  data: x.response,
-                  rowId: 'id',
-                  "ordering": false,
-                  "searching": true,
+                    $('#users').DataTable({
+                        data: x.response,
+                        rowId: 'id',
+                        "ordering": false,
+                        "searching": true,
 
-                  "columnDefs": [{
-                     "className": "dt-center",
-                     "targets": "_all",
-                     "data": null,
-                  }],
-                  columns: [
+                        "columnDefs": [{
+                            "className": "dt-center",
+                            "targets": "_all",
+                            "data": null,
+                        }],
+                        columns: [
 
-                     { data: 'id' },
-                     { data: 'username' },
-                     { data: 'password' },
-                     { data: 'email' },
-                     { data: 'roleId' },
-                     { data: 'updatedAt' },
-                     { data: 'createdAt' },
-                  ],
-               });
-               var table = $('#users').DataTable();
-            }
-         })
-      });
-   </script>
-</body>
-
-</html>
+                            {
+                                data: 'id'
+                            }, {
+                                data: 'username'
+                            }, {
+                                data: 'password'
+                            }, {
+                                data: 'email'
+                            }, {
+                                data: 'roleId'
+                            }, {
+                                data: 'updatedAt'
+                            }, {
+                                data: 'createdAt'
+                            },
+                        ],
+                    });
+                    var table = $('#users').DataTable();
+                }
+            })
+        });
+    </script>
