@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const path = require('path');
 const Reminder = require('../models/Reminder.js');
 
 router.post('/delete-reminder', async(req, res) => {
@@ -15,7 +14,7 @@ router.post('/delete-reminder', async(req, res) => {
 
             } else {
 
-                const reminderDeleted = await Reminder.query().deleteById(id);
+                await Reminder.query().deleteById(id);
             }
 
         } catch (error) {

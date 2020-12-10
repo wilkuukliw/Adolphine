@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const path = require('path');
 const Subscriber = require('../models/Subscriber.js');
 
 router.post('/subscribe', async(req, res) => {
@@ -7,7 +6,7 @@ router.post('/subscribe', async(req, res) => {
 
     if (email) {
         try {
-            const createdSubscriber = await Subscriber.query().insert({
+            await Subscriber.query().insert({
                 email
             });
 

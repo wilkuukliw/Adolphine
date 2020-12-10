@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const path = require('path');
 const Subscriber = require('../models/Subscriber.js');
 
 router.get('/subscribers/collection', async(req, res) => {

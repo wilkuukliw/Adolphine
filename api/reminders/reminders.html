@@ -25,22 +25,22 @@
     <script>
         $(document).ready(function() {
             $.ajax({
-                "url": "/reminders/collection",
-                "type": "GET",
-                "datatype": 'json',
+                'url': '/reminders/collection',
+                'type': 'GET',
+                'datatype': 'json',
 
-                "success": function(x) {
+                'success': function(x) {
 
                     $('#reminders').DataTable({
                         data: x.response,
                         rowId: 'id',
-                        "ordering": false,
-                        "searching": true,
+                        'ordering': false,
+                        'searching': true,
 
-                        "columnDefs": [{
-                            "className": "dt-center",
-                            "targets": "_all",
-                            "data": null,
+                        'columnDefs': [{
+                            'className': 'dt-center',
+                            'targets': '_all',
+                            'data': null,
 
                         }],
                         columns: [
@@ -61,7 +61,7 @@
 
                         ],
                     });
-                    var table = $('#reminders').DataTable();
+                    const table = $('#reminders').DataTable();
                 }
             })
         });

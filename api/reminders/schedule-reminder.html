@@ -22,7 +22,6 @@
             const send_at = document.forms.reminderSubmit.send_at.value;
 
             const numericReg = /^\+?\d*$/;
-            var now = new Date();
 
             if (email_body.length < 4) {
                 Swal.fire('Please be more specific');
@@ -34,7 +33,7 @@
                 return false;
             }
 
-            if (!isFutureDate(send_at)) {
+            if (Date.parse(send_at) - Date.parse(new Date()) < 0) {
                 Swal.fire('Please check the date - it seems to be in the past');
                 return false;
             }
@@ -42,18 +41,10 @@
             return true;
         }
 
-        function isFutureDate(idate) {
-            var today = new Date().getTime(),
-                idate = idate.split('/');
-
-            idate = new Date(idate[2], idate[1] - 1, idate[0]).getTime();
-            return (today - idate) < 0;
-        }
-
         $('#submit').click(function() {
-            var email_body = $('#email_body').val();
-            var send_at = $('#send_at').val();
-            var created_by = $('#created_by').val();
+            const email_body = $('#email_body').val();
+            const send_at = $('#send_at').val();
+            const created_by = $('#created_by').val();
 
             if (email_body == '' || send_at == '' || created_by == '') {
 
@@ -79,5 +70,3 @@
             }
         });
     </script>
-
-    <!-- //if date is before now do not accept reminder -->

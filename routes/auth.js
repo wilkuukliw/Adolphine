@@ -184,7 +184,7 @@ router.post('/passwordreset', async(req, res) => {
 
             // if they do, hash password and save it to the database
             const hashedPassword = await bcrypt.hash(password, saltRounds);
-            const userUpdated = await User.query().where('username', '=', username).update({ password: hashedPassword });
+            await User.query().where('username', '=', username).update({ password: hashedPassword });
 
             // Remember to remove the entry in our dictionary
             delete resetPasswordDict[username];

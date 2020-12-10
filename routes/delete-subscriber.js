@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const path = require('path');
 const Subscriber = require('../models/Subscriber.js');
 
 router.post('/delete-subscriber', async(req, res) => {
@@ -16,7 +15,7 @@ router.post('/delete-subscriber', async(req, res) => {
 
             } else {
 
-                const subDeleted = await Subscriber.query().delete().where({
+                await Subscriber.query().delete().where({
                     email: req.body.email
                 })
             }

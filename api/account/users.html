@@ -19,7 +19,7 @@
     </table>
 
     <div class="floating-btn">
-        <a class=" floating-btn" href='/signup'>+</a>
+        <a class="floating-btn" href='/signup'>+</a>
     </div>
     <script>
         $(document).ready(function() {
@@ -41,26 +41,23 @@
                             'targets': '_all',
                             'data': null,
                         }],
-                        columns: [
-
-                            {
-                                data: 'id'
-                            }, {
-                                data: 'username'
-                            }, {
-                                data: 'password'
-                            }, {
-                                data: 'email'
-                            }, {
-                                data: 'roleId'
-                            }, {
-                                data: 'updatedAt'
-                            }, {
-                                data: 'createdAt'
-                            },
-                        ],
+                        'columns': [{
+                            'data': 'id'
+                        }, {
+                            'data': 'username'
+                        }, {
+                            'data': 'password'
+                        }, {
+                            'data': 'email'
+                        }, {
+                            'data': 'roleId'
+                        }, {
+                            'data': 'updatedAt'
+                        }, {
+                            'data': 'createdAt'
+                        }]
                     });
-                    var table = $('#users').DataTable();
+                    const table = $('#users').DataTable();
                 }
             })
         });
