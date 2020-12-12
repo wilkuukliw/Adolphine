@@ -1,78 +1,74 @@
-const router = require('express').Router();
-const Reminder = require('../models/Reminder.js');
-const User = require('../models/User.js');
-const schedule = require('node-schedule');
-const nodemailer = require('nodemailer');
-const credentials = require('../config/mailCredentials');
-const Subscriber = require('../models/Subscriber.js');
+const router = require('express').Router()
+const Reminder = require('../models/Reminder.js')
+const User = require('../models/User.js')
+const schedule = require('node-schedule')
+const nodemailer = require('nodemailer')
+const credentials = require('../config/mailCredentials')
+const Subscriber = require('../models/Subscriber.js')
 
-router.post('/schedule', async(req, res) => {
-    const { email_body, created_by, send_at } = req.body;
+router.post('/schedule', async (req, res) => {
+  const { email_body, created_by, send_at } = req.body
 
-    //consider not to ask for sc username but fetch it from session instead
+  // todo: consider not to ask for sc username but fetch it from session instead
 
-    if (email_body && created_by && send_at) {
+  if (email_body && created_by && send_at) {
+    try {
+      const userFound = await User.query().select().where('username', created_by).limit(1)
+      if (userFound.length === 0) {
+        return res.status(400).send({
+          response: 'Verify the initials'
+        })
+      } else {
+        const createdReminder = await Reminder.query().insert({
 
-        try {
-            const userFound = await User.query().select().where('username', created_by).limit(1);
-            if (userFound.length === 0) {
-                return res.status(400).send({
-                    response: 'Verify the initials'
-                });
+          email_body,
+          created_by,
+          send_at
 
-            } else {
+        })
 
-                const createdReminder = await Reminder.query().insert({
+        console.log(createdReminder)
 
-                    email_body,
-                    created_by,
-                    send_at
+        schedule.scheduleJob(createdReminder.send_at, function () {
+          console.log('Sending')
 
-                });
+          dispatcher(createdReminder)
+        })
 
-                console.log(createdReminder);
+        const dispatcher = async () => {
+          const transporter = nodemailer.createTransport({
+            host: 'smtp.gmail.com',
+            port: 465,
+            pool: true,
+            secure: true, // use SSL
+            auth: {
+              user: credentials.user,
+              pass: credentials.pass
+            }
 
-                schedule.scheduleJob(createdReminder.send_at, function() {
-                    console.log('Sending');
+          })
 
-                    dispatcher(createdReminder);
-                })
+          // verify connection configuration
+          await transporter.verify()
+          console.log('Email account ready')
 
-                const dispatcher = async() => {
+          const subscribers = await Subscriber.query().select('email')
 
-                    let transporter = nodemailer.createTransport({
-                        host: 'smtp.gmail.com',
-                        port: 465,
-                        pool: true,
-                        secure: true, // use SSL
-                        auth: {
-                            user: credentials.user,
-                            pass: credentials.pass
-                        }
+          const mailingList = [] // check if let is appropriate here
 
-                    });
+          subscribers.forEach(subscriber => {
+            mailingList.push(subscriber.email)
+          })
 
-                    // verify connection configuration
-                    await transporter.verify();
-                    console.log('Email account ready');
+          console.log(subscribers)
+          console.log(createdReminder.email_body)
 
-                    const subscribers = await Subscriber.query().select('email');
+          const mailOptions = {
 
-                    let mailingList = []; //check if let is appropriate here
-
-                    subscribers.forEach(subscriber => {
-                        mailingList.push(subscriber.email)
-                    });
-
-                    console.log(subscribers);
-                    console.log(createdReminder.email_body);
-
-                    var mailOptions = {
-
-                        from: credentials.user,
-                        to: mailingList,
-                        subject: 'Adolphine - New reminder delivered',
-                        html: `
+            from: credentials.user,
+            to: mailingList,
+            subject: 'Adolphine - New reminder delivered',
+            html: `
                              <p>Dear SimCorper</p>
                              
                              <p>Here is something worth remembering for you</p>
@@ -81,22 +77,22 @@ router.post('/schedule', async(req, res) => {
                             
                              <p>Best regards,<br>
                              Adolphine<br>
-                             <p><input type='text' value='Above message is autogenerated.' disabled /> </p>`,
-                    };
+                             <p>Above message is autogenerated.</p>`
+          }
 
-                    transporter.sendMail(mailOptions, (error) => {
-                        if (error) {
-                            console.log(error)
-                            return
-                        }
-                        console.log('Sent!')
-                    });
-                };
+          transporter.sendMail(mailOptions, (error) => {
+            if (error) {
+              console.log(error)
+              return
             }
-        } catch (error) {
-            return res.status(500).send({ response: 'Something went wrong with the database' + error });
+            console.log('Sent!')
+          })
         }
+      }
+    } catch (error) {
+      return res.status(500).send({ response: 'Something went wrong with the database' + error })
     }
-});
+  }
+})
 
-module.exports = router;
+module.exports = router
