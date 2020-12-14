@@ -1,15 +1,10 @@
-
-<!-- PROJECT LOGO -->
-<br />
+<!-- README.md contents -->
 
 <p align="center">
   <img width="100" height="100" src="https://www.svgrepo.com/show/64665/dolphin.svg">
 </p>
-    <img algin="center" src="https://www.svgrepo.com/show/64665/dolphin.svg" alt="Logo" width="80" height="80">
-
   <h3 align="center">ADOLPHINE—the reminder app</h3>
 
-<!-- ABOUT THE PROJECT -->
 ## About The Project
 
 Support agile teams working in a dynamic environment by helping them to remember important matters, such as for instance action plans, birthdays or anniversaries.
