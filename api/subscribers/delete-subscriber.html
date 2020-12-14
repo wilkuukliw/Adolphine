@@ -5,7 +5,7 @@
     <form action="/delete-subscriber" method="post" name="deleteSubmit" onsubmit="return validateForm()">
         <div class="form-row align-items-center">
             <label for="emial">Remove from the mailing list..</label>
-            <input type="text" placeholder="Remove from the mailing list.." name="email" id="email" required>
+            <input type="text" placeholder="Email address" name="email" id="email" required>
             <button class="btn btn-primary" type="submit" id="submit">Submit</button>
             <button class="btn btn-primary" id="cancel" onclick="window.location.href='/home'">Cancel</button>
         </div>

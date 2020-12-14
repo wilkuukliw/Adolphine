@@ -1,16 +1,34 @@
 const express = require('express')
 const app = express()
 const fs = require('fs')
-const session = require('express-session')
+const session = require('express-session') //keep track of users logged in and authorisation
 
 app.use(express.static('.'))
 app.use(express.urlencoded({ extended: true }))
 
-app.use(session({
-  secret: require('./config/mysqlCredentials.js').sessionSecret,
-  resave: false,
-  saveUninitialized: true
+const helmet = require('helmet')
+app.use(helmet({
+    contentSecurityPolicy: false,
 }))
+
+app.use(session({
+    secret: require('./config/mysqlCredentials.js').sessionSecret, //  used to determine if the user is logged-in
+    resave: false,
+    saveUninitialized: true
+}))
+
+// rate limiter
+
+const rateLimit = require('express-rate-limit')
+
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 8
+})
+
+app.use('/login', limiter)
+app.use('/singup', limiter)
+app.use('/resetpassword', limiter)
 
 const navbarPage = fs.readFileSync('api/navbar/navbar.html', 'utf8')
 const headPage = fs.readFileSync('api/navbar/head.html', 'utf8')
@@ -29,83 +47,83 @@ const deleteSubscriberPage = fs.readFileSync('api/subscribers/delete-subscriber.
 const subscribersPage = fs.readFileSync('api/subscribers/subscribers.html', 'utf8')
 
 app.get('/', (req, res) => {
-  return res.send(headPage + loginPage + footerPage)
+    return res.send(headPage + loginPage + footerPage)
 })
 
 app.get('/login', (req, res) => {
-  return res.send(headPage + loginPage + footerPage)
+    return res.send(headPage + loginPage + footerPage)
 })
 
 app.get('/home', (req, res) => {
-  if (req.session.user) {
-    return res.send(headPage + navbarPage + homePage + footerPage)
-  } else {
-    return res.redirect('/login')
-  }
+    if (req.session.user) {
+        return res.send(headPage + navbarPage + homePage + footerPage)
+    } else {
+        return res.redirect('/login')
+    }
 })
 
 app.get('/signup', (req, res) => {
-  return res.send(headPage + signupPage + footerPage)
+    return res.send(headPage + signupPage + footerPage)
 })
 
 app.get('/subscribe', (req, res) => {
-  return res.send(headPage + addSubscriberPage + footerPage)
-})
-
-app.get('/resetpassword', (req, res) => {
-  return res.send(headPage + resetPasswordPage + footerPage)
+    return res.send(headPage + addSubscriberPage + footerPage)
 })
 
 app.get('/passwordreset', (req, res) => {
-  return res.send(headPage + sendResetPasswordPage + footerPage)
+    return res.send(headPage + resetPasswordPage + footerPage)
+})
+
+app.get('/resetpassword', (req, res) => {
+    return res.send(headPage + sendResetPasswordPage + footerPage)
 })
 
 app.get('/users', (req, res) => {
-  if (req.session.user) {
-    return res.send(headPage + usersPage + footerPage)
-  } else {
-    return res.redirect('/login')
-  }
+    if (req.session.user) {
+        return res.send(headPage + usersPage + footerPage)
+    } else {
+        return res.redirect('/login')
+    }
 })
 
 app.get('/delete-reminder', (req, res) => {
-  if (req.session.user) {
-    return res.send(headPage + deleteReminderPage + footerPage)
-  } else {
-    return res.redirect('/login')
-  }
+    if (req.session.user) {
+        return res.send(headPage + deleteReminderPage + footerPage)
+    } else {
+        return res.redirect('/login')
+    }
 })
 
 app.get('/delete-subscriber', (req, res) => {
-  if (req.session.user) {
-    return res.send(headPage + deleteSubscriberPage + footerPage)
-  } else {
-    return res.redirect('/login')
-  }
+    if (req.session.user) {
+        return res.send(headPage + deleteSubscriberPage + footerPage)
+    } else {
+        return res.redirect('/login')
+    }
 })
 
 app.get('/reminders', (req, res) => {
-  if (req.session.user) {
-    return res.send(headPage + remindersrPage + footerPage)
-  } else {
-    return res.redirect('/login')
-  }
+    if (req.session.user) {
+        return res.send(headPage + remindersrPage + footerPage)
+    } else {
+        return res.redirect('/login')
+    }
 })
 
 app.get('/schedule', (req, res) => {
-  if (req.session.user) {
-    return res.send(headPage + scheduleReminderPage + footerPage)
-  } else {
-    return res.redirect('/login')
-  }
+    if (req.session.user) {
+        return res.send(headPage + scheduleReminderPage + footerPage)
+    } else {
+        return res.redirect('/login')
+    }
 })
 
 app.get('/subscribers', (req, res) => {
-  if (req.session.user) {
-    return res.send(headPage + subscribersPage + footerPage)
-  } else {
-    return res.redirect('/login')
-  }
+    if (req.session.user) {
+        return res.send(headPage + subscribersPage + footerPage)
+    } else {
+        return res.redirect('/login')
+    }
 })
 
 const authRoute = require('./routes/auth.js')
@@ -137,8 +155,8 @@ Model.knex(knex)
 
 // change it to be neater, more advanced
 app.listen(5005, (error) => {
-  if (error) {
-    console.log('Error running the server')
-  }
-  console.log('Server running on port 5005')
+    if (error) {
+        console.log('Error running the server')
+    }
+    console.log('Server running on port 5005')
 })
