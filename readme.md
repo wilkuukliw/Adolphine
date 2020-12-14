@@ -1,24 +1,16 @@
 
 <!-- PROJECT LOGO -->
 <br />
-<a align="center">
-    <img src="https://www.svgrepo.com/show/64665/dolphin.svg" alt="Logo" width="80" height="80">
-  </a>
+    <a align="center" img src="https://www.svgrepo.com/show/64665/dolphin.svg" alt="Logo" width="80" height="80">
+ 
   <h3 align="center">ADOLPHINE—the reminder app</h3>
-
-
-
-
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
 Support agile teams working in a dynamic environment by helping them to remember important matters, such as for instance action plans, birthdays or anniversaries.
 
-
 ### Tech Stack
-
-
 
 <code>node:</code>
 open-source, cross-platform, back-end, JavaScript runtime environment. 
@@ -26,13 +18,11 @@ open-source, cross-platform, back-end, JavaScript runtime environment.
 <code>express</code>
 web application framework.
 
-
 <code>nodemailer:</code>
 sending emails. 
 
 <code>node-scheduler:</code>
 scheduling jobs.
-
 
 ## Getting Started
 
@@ -61,7 +51,6 @@ Install [Node.js](https://nodejs.org/en/)
    nodemon app.js
    ```
 
-<!-- CONTRIBUTING -->
 ## Contributing
 
 Contributions are what make the open source community such an **amazing place**.
@@ -72,7 +61,6 @@ Contributions are what make the open source community such an **amazing place**.
 4. Push to the Branch (`git push origin feature/YourFeature`)
 5. Open a Pull Request
 
-<!-- LICENSE -->
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
