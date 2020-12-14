@@ -1,7 +1,9 @@
 
 <!-- PROJECT LOGO -->
 <br />
-    <a align="center" img src="https://www.svgrepo.com/show/64665/dolphin.svg" alt="Logo" width="80" height="80">
+<center>
+    <img src="https://www.svgrepo.com/show/64665/dolphin.svg" alt="Logo" width="80" height="80">
+</center>
  
   <h3 align="center">ADOLPHINE—the reminder app</h3>
 
