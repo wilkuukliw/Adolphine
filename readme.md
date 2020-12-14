@@ -1,11 +1,10 @@
 
 <!-- PROJECT LOGO -->
 <br />
+<a align="center">
     <img src="https://www.svgrepo.com/show/64665/dolphin.svg" alt="Logo" width="80" height="80">
   </a>
   <h3 align="center">ADOLPHINE—the reminder app</h3>
-
-  <p align="center">
 
 
 
@@ -14,29 +13,26 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
+Support agile teams working in a dynamic environment by helping them to remember important matters, such as for instance action plans, birthdays or anniversaries.
 
 
-### Tech stack
+### Tech Stack
 
-<li>
+
 
 <code>node:</code>
 open-source, cross-platform, back-end, JavaScript runtime environment. 
-</li>
-<li>
 
 <code>express</code>
 web application framework.
-</li>
-<li>
+
 
 <code>nodemailer:</code>
 sending emails. 
-</li>
-<li>
+
 <code>node-scheduler:</code>
 scheduling jobs.
-</li>
+
 
 ## Getting Started
 
