@@ -1,10 +1,10 @@
 const router = require('express').Router()
-const Reminder = require('../models/Reminder.js')
-const User = require('../models/User.js')
+const Reminder = require('../db/models/Reminder.js')
+const User = require('../db/models/User.js')
 const schedule = require('node-schedule')
 const nodemailer = require('nodemailer')
 const credentials = require('../config/mailCredentials')
-const Subscriber = require('../models/Subscriber.js')
+const Subscriber = require('../db/models/Subscriber.js')
 
 router.post('/schedule', async(req, res) => {
     const { email_body, created_by, send_at } = req.body
