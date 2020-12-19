@@ -6,6 +6,8 @@ const session = require('express-session') //keep track of users logged in and a
 app.use(express.static('.'))
 app.use(express.urlencoded({ extended: true }))
 
+
+
 const helmet = require('helmet')
 app.use(helmet({
     contentSecurityPolicy: false,
@@ -160,3 +162,5 @@ app.listen(5005, (error) => {
     }
     console.log('Server running on port 5005')
 })
+
+module.exports = app

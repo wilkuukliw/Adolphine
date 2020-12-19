@@ -13,6 +13,7 @@
                   text-decoration: none;
                   display: table;
                   margin-top: 15px;
+                  padding-left: 5px;
               }
               
               ul {
@@ -38,6 +39,7 @@
               .dropdown {
                   float: left;
                   overflow: hidden;
+                  margin-top: -15px;
               }
               
               .navbar a:hover,
@@ -61,7 +63,8 @@
                   padding: 12px 16px;
                   text-decoration: none;
                   display: block;
-                  text-align: left;
+                  text-align: center;
+                  margin-top: -15px;
               }
               
               .dropdown:hover .dropdown-content {

@@ -28,8 +28,9 @@
         $('#submit').click(function() {
 
             const username = $('#username').val();
+            const email = $('#email').val();
 
-            if (username == '') {
+            if (username == null || username == "") {
 
                 Swal.fire({
                     title: 'Username empty',
