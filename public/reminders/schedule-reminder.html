@@ -8,7 +8,7 @@
            <h2>Remind about..</h2>
         </label>
             <textarea name="email_body" id="email_body" rows="6" placeholder=""></textarea>
-            <input type="text" placeholder="Your SC initials:" name="created_by" id="created_by" required>
+            <input type="hidden" placeholder="Your SC initials:" name="created_by" id="created_by" required>
             <label for="send_at">Schedule to be send at:</label>
             <input type="datetime-local" placeholder="Schedule to be send at:" name="send_at" id="send_at" required>
             <button type="submit" id="submit">Submit</button>
@@ -18,18 +18,13 @@
     <script>
         function validateForm() {
             const email_body = document.forms.reminderSubmit.email_body.value;
-            const created_by = document.forms.reminderSubmit.created_by.value;
+            const created_by = req.session.user;
             const send_at = document.forms.reminderSubmit.send_at.value;
 
             const numericReg = /^\+?\d*$/;
 
             if (email_body.length < 4) {
                 Swal.fire('Please be more specific');
-                return false;
-            }
-
-            if (numericReg.test(created_by)) {
-                Swal.fire('Please enter alphabetic characters only for the initials');
                 return false;
             }
 
@@ -46,7 +41,7 @@
             const send_at = $('#send_at').val();
             const created_by = $('#created_by').val();
 
-            if (email_body == '' || send_at == '' || created_by == '') {
+            if (email_body == '' || send_at == '') {
 
                 Swal.fire({
                     title: 'Fields empty',

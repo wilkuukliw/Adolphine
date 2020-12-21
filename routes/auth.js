@@ -7,9 +7,7 @@ const bcrypt = require('bcrypt')
 const saltRounds = 12
 const { v4: uuidv4 } = require('uuid')
 
-// Dictionary that can contain username and tokens for password reset
-// Used in the post /passwordreset route
-const resetPasswordDict = {}
+const resetPasswordDict = {} // Dictionary that can contain username and tokens for password reset
 
 const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
@@ -80,10 +78,8 @@ router.post('/signup', async(req, res) => {
                 if (userFound.length > 0) {
                     return res.status(400).send({ response: 'User already exists' })
                 } else {
-                    // Role model uses await instead (promise)
                     const defaultUserRoles = await Role.query().select().where({ role: 'USER' })
                     const concatEmail = 'anna.maria.wilczek@gmail.com' // username.concat('@simcorp.com');
-
 
                     const hashedPassword = await bcrypt.hash(password, saltRounds)
 
@@ -119,15 +115,11 @@ router.get('/logout', (req, res) => {
     })
 })
 
-// Route for initiating password reset and send email
-
 router.post('/resetpassword', async(req, res) => {
     const { username } = req.body
 
-    // If user is in the db
     const userFound = await User.query().select().where({ username: username }).limit(1)
 
-    // If user exists
     if (userFound.length > 0) {
         const email = 'anna.maria.wilczek@gmail.com'
 
@@ -150,9 +142,7 @@ router.post('/resetpassword', async(req, res) => {
     }
 })
 
-// Route for resetting password
 router.post('/passwordreset', async(req, res) => {
-    // Capture the information from the form
     const username = req.body.username
     const token = req.body.token
     const password = req.body.password
@@ -166,9 +156,9 @@ router.post('/passwordreset', async(req, res) => {
             const hashedPassword = await bcrypt.hash(password, saltRounds)
             await User.query().where('username', '=', username).update({ password: hashedPassword })
 
-            // Remember to remove the entry in our dictionary
+            // Remove the entry in our dictionary
             delete resetPasswordDict[username]
-            return res.status(200).redirect('/login') // todo: introduce some indication of successful reset
+            return res.status(200).send({ response: 'Success. You can now log in' })
         } else {
             return res.status(401).send({ response: 'Passwords must match eachother' })
         }
