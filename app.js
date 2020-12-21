@@ -1,16 +1,14 @@
 const express = require('express')
 const app = express()
 const fs = require('fs')
-const session = require('express-session') //keep track of users logged in and authorisation
+const session = require('express-session') // keep track of users logged in and authorisation
 
 app.use(express.static('.'))
 app.use(express.urlencoded({ extended: true }))
 
-
-
 const helmet = require('helmet')
 app.use(helmet({
-    contentSecurityPolicy: false,
+    contentSecurityPolicy: false
 }))
 
 app.use(session({
@@ -40,12 +38,15 @@ const loginPage = fs.readFileSync('public/account/login.html', 'utf8')
 const resetPasswordPage = fs.readFileSync('public/account/resetpassword.html', 'utf8')
 const sendResetPasswordPage = fs.readFileSync('public/account/sendresetmail.html', 'utf8')
 const signupPage = fs.readFileSync('public/account/signup.html', 'utf8')
+const scheduleReminderPage = fs.readFileSync('public/reminders/schedule-reminder.html', 'utf8')
+const deleteSubscriberPage = fs.readFileSync('public/subscribers/delete-subscriber.html', 'utf8')
+
+// admin only routes
+
 const usersPage = fs.readFileSync('public/account/users.html', 'utf8')
 const deleteReminderPage = fs.readFileSync('public/reminders/delete-reminder.html', 'utf8')
-const scheduleReminderPage = fs.readFileSync('public/reminders/schedule-reminder.html', 'utf8')
 const remindersrPage = fs.readFileSync('public/reminders/reminders.html', 'utf8')
 const addSubscriberPage = fs.readFileSync('public/subscribers/add-subscriber.html', 'utf8')
-const deleteSubscriberPage = fs.readFileSync('public/subscribers/delete-subscriber.html', 'utf8')
 const subscribersPage = fs.readFileSync('public/subscribers/subscribers.html', 'utf8')
 
 app.get('/', (req, res) => {
@@ -81,18 +82,18 @@ app.get('/resetpassword', (req, res) => {
 })
 
 app.get('/users', (req, res) => {
-    if (req.session.user) {
+    if (req.session.user.id == 1) {
         return res.send(headPage + usersPage + footerPage)
     } else {
-        return res.redirect('/login')
+        return res.status(403).send({ error: 'Access denied' });
     }
 })
 
 app.get('/delete-reminder', (req, res) => {
-    if (req.session.user) {
+    if (req.session.user.id == 1) {
         return res.send(headPage + deleteReminderPage + footerPage)
     } else {
-        return res.redirect('/login')
+        return res.status(403).send({ error: 'Access denied' });
     }
 })
 
@@ -105,10 +106,10 @@ app.get('/delete-subscriber', (req, res) => {
 })
 
 app.get('/reminders', (req, res) => {
-    if (req.session.user) {
+    if (req.session.user.id == 1) {
         return res.send(headPage + remindersrPage + footerPage)
     } else {
-        return res.redirect('/login')
+        return res.status(403).send({ error: 'Access denied' });
     }
 })
 
@@ -121,10 +122,10 @@ app.get('/schedule', (req, res) => {
 })
 
 app.get('/subscribers', (req, res) => {
-    if (req.session.user) {
+    if (req.session.user.id == 1) {
         return res.send(headPage + subscribersPage + footerPage)
     } else {
-        return res.redirect('/login')
+        return res.status(403).send({ error: 'Access denied' });
     }
 })
 

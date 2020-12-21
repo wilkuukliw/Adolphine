@@ -82,13 +82,12 @@ router.post('/signup', async(req, res) => {
                 } else {
                     // Role model uses await instead (promise)
                     const defaultUserRoles = await Role.query().select().where({ role: 'USER' })
-
-                    const hashedPassword = await bcrypt.hash(password, saltRounds)
                     const concatEmail = 'anna.maria.wilczek@gmail.com' // username.concat('@simcorp.com');
 
-                    // Create the UUID for the user, that we are going to use as an identifier in our session
 
-                    const uniqueId = uuidv4()
+                    const hashedPassword = await bcrypt.hash(password, saltRounds)
+
+                    const uniqueId = uuidv4() // creates the UUID, that is to be used as an identifier in session
 
                     await User.query().insert({
                         username,
