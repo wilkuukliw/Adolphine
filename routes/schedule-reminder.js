@@ -65,7 +65,7 @@ router.post('/schedule', async(req, res) => {
                         to: mailingList,
                         subject: 'Adolphine - New reminder delivered',
                         html: `
-                             <p>Dear SimCorper</p>
+                             <p>Dear SimCorper,</p>
                              
                              <p>Here is something worth remembering for you</p>
                   

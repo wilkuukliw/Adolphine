@@ -1,10 +1,5 @@
 const router = require('express').Router()
-const path = require('path')
 const User = require('../db/models/User.js')
-
-router.get('/accounts', (req, res) => {
-    return res.sendFile(path.join(__dirname, '../api/account/accounts.html'))
-})
 
 router.get('/users/roles', async(req, res) => {
     const users = await User.query().select('username').withGraphFetched('role') // select is optional. would default if omitted. // withgrapfethed - show also retaled roles object
@@ -35,8 +30,13 @@ router.get('/getsessionuser', async(req, res) => {
 })
 
 router.get('/users/collection', async(req, res) => {
-    const users = await User.query().select()
-    return res.send({ response: users })
+    if (req.session.user.id == 1) {
+        const users = await User.query().select()
+        return res.send({ response: users })
+    } else {
+        return res.status(403).send('Access denied');
+
+    }
 })
 
 router.get('/users/collection/:id', async(req, res) => {

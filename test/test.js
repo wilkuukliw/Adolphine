@@ -10,17 +10,33 @@ chai.use(chaiHttp)
 
 /** testing subscriber route **/
 
-describe('/GET subscriber', () => {
-    it('it should Get all subscribers', (done) => {
+describe('/GET subscribers', () => {
+    it('it should Get all subscribers', async() => {
+        await delay(1000)
         chai.request(app)
-            .get('/subscribers')
+            .get('/subscribers/collection')
             .end((err, res) => {
+                res.body.user.id == 1;
                 res.should.have.status(200)
                 res.body.should.be.a('object')
                 done()
             })
     })
 })
+
+describe('/GET subscribers - fail', () => {
+    it('it should fail without permission access', async() => {
+        await delay(1000)
+        chai.request(app)
+            .get('/subscribers/collection')
+            .end((err, res) => {
+                res.should.have.status(403)
+                res.body.should.be.a('object')
+                done()
+            })
+    })
+})
+
 
 describe('/POST subscriber', () => {
     it('it sould post the subscriber info', async() => {
@@ -45,11 +61,25 @@ describe('/POST subscriber', () => {
 /** testing user route **/
 
 describe('/GET users', () => {
-    it('it should Get all users', (done) => {
+    it('it should Get all users', async() => {
+        await delay(1000)
         chai.request(app)
             .get('/users/collection')
             .end((err, res) => {
                 res.should.have.status(200)
+                res.body.should.be.a('object')
+                done()
+            })
+    })
+})
+
+describe('/GET users - fail', () => {
+    it('it should fail without permission access', async() => {
+        await delay(1000)
+        chai.request(app)
+            .get('/users/collection')
+            .end((err, res) => {
+                res.should.have.status(403)
                 res.body.should.be.a('object')
                 done()
             })
@@ -109,11 +139,25 @@ describe('Testing Route to Register New user', function(done) {
 /** testing reminder route **/
 
 describe('/GET reminder', () => {
-    it('it should Get all reminders', (done) => {
+    it('it should Get all reminders', async() => {
+        await delay(1000)
         chai.request(app)
             .get('/reminders/collection')
             .end((err, res) => {
                 res.should.have.status(200)
+                res.body.should.be.a('object')
+                done()
+            })
+    })
+})
+
+describe('/GET reminders - fail', () => {
+    it('it should fail without permission access', async() => {
+        await delay(1000)
+        chai.request(app)
+            .get('/reminders/collection')
+            .end((err, res) => {
+                res.should.have.status(403)
                 res.body.should.be.a('object')
                 done()
             })

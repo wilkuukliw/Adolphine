@@ -45,9 +45,10 @@ const deleteSubscriberPage = fs.readFileSync('public/subscribers/delete-subscrib
 
 const usersPage = fs.readFileSync('public/account/users.html', 'utf8')
 const deleteReminderPage = fs.readFileSync('public/reminders/delete-reminder.html', 'utf8')
-const remindersrPage = fs.readFileSync('public/reminders/reminders.html', 'utf8')
+const remindersPage = fs.readFileSync('public/reminders/reminders.html', 'utf8')
 const addSubscriberPage = fs.readFileSync('public/subscribers/add-subscriber.html', 'utf8')
 const subscribersPage = fs.readFileSync('public/subscribers/subscribers.html', 'utf8')
+const accessDeniedPage = ('<strong><p style="text-align:left;font-size:25px;">Access denied</p></strong>')
 
 app.get('/', (req, res) => {
     return res.send(headPage + loginPage + footerPage)
@@ -82,18 +83,20 @@ app.get('/resetpassword', (req, res) => {
 })
 
 app.get('/users', (req, res) => {
-    if (req.session.user.id == 1) {
+    const isAdmin = req.session.user.id == 1
+    if (isAdmin) {
         return res.send(headPage + usersPage + footerPage)
     } else {
-        return res.status(403).send({ error: 'Access denied' });
+        return res.status(403).send(headPage + accessDeniedPage);
     }
 })
 
 app.get('/delete-reminder', (req, res) => {
-    if (req.session.user.id == 1) {
+    const isAdmin = req.session.user.id == 1
+    if (isAdmin) {
         return res.send(headPage + deleteReminderPage + footerPage)
     } else {
-        return res.status(403).send({ error: 'Access denied' });
+        return res.status(403).send(headPage + accessDeniedPage)
     }
 })
 
@@ -106,10 +109,11 @@ app.get('/delete-subscriber', (req, res) => {
 })
 
 app.get('/reminders', (req, res) => {
-    if (req.session.user.id == 1) {
-        return res.send(headPage + remindersrPage + footerPage)
+    const isAdmin = req.session.user.id == 1
+    if (isAdmin) {
+        return res.send(headPage + remindersPage + footerPage)
     } else {
-        return res.status(403).send({ error: 'Access denied' });
+        return res.status(403).send(headPage + accessDeniedPage)
     }
 })
 
@@ -122,46 +126,48 @@ app.get('/schedule', (req, res) => {
 })
 
 app.get('/subscribers', (req, res) => {
-    if (req.session.user.id == 1) {
+    const isAdmin = req.session.user.id == 1
+    if (isAdmin) {
         return res.send(headPage + subscribersPage + footerPage)
     } else {
-        return res.status(403).send({ error: 'Access denied' });
+        return res.status(403).send(headPage + accessDeniedPage)
     }
 })
 
-const authRoute = require('./routes/auth.js')
-app.use(authRoute)
-const usersRoute = require('./routes/users.js')
-app.use(usersRoute)
-const scheduleReminderRoute = require('./routes/schedule-reminder.js')
-app.use(scheduleReminderRoute)
-const reminderRoute = require('./routes/reminder.js')
-app.use(reminderRoute)
-const subscribersRoute = require('./routes/subscribers.js')
-app.use(subscribersRoute)
-const addSubscriberRoute = require('./routes/add-subscriber.js')
-app.use(addSubscriberRoute)
-const deleteSubscriberRoute = require('./routes/delete-subscriber.js')
-app.use(deleteSubscriberRoute)
-const deleteReminderRoute = require('./routes/delete-reminder.js')
-app.use(deleteReminderRoute)
+const authRoute = require('./routes/auth.js');
+app.use(authRoute);
+const usersRoute = require('./routes/users.js');
+app.use(usersRoute);
+const scheduleReminderRoute = require('./routes/schedule-reminder.js');
+app.use(scheduleReminderRoute);
+const reminderRoute = require('./routes/reminder.js');
+app.use(reminderRoute);
+const subscribersRoute = require('./routes/subscribers.js');
+app.use(subscribersRoute);
+const addSubscriberRoute = require('./routes/add-subscriber.js');
+app.use(addSubscriberRoute);
+const deleteSubscriberRoute = require('./routes/delete-subscriber.js');
+app.use(deleteSubscriberRoute);
+const deleteReminderRoute = require('./routes/delete-reminder.js');
+app.use(deleteReminderRoute);
 
 /* knex and objection */
 
-const { Model } = require('objection')
-const Knex = require('knex')
-const knexFile = require('./knexfile.js')
+const { Model } = require('objection');
+const Knex = require('knex');
+const knexFile = require('./knexfile.js');
 
 const knex = Knex(knexFile.development)
 
 Model.knex(knex)
 
-// change it to be neater, more advanced
-app.listen(5005, (error) => {
+const port = process.env.PORT ? process.env.PORT : 5005;
+
+app.listen(port, (error) => {
     if (error) {
         console.log('Error running the server')
     }
-    console.log('Server running on port 5005')
+    console.log('Server running on port ' + port)
 })
 
 module.exports = app
