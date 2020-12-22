@@ -1,4 +1,5 @@
 mysqlCredentials.js
+mailCredentials.js
 node_modules/
 #mysqlCredentials.js
 #mailCredentials.js
